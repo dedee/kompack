@@ -23,7 +23,8 @@ jobs:
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
           arguments: build
+      # later upload via gradle?!
       - uses: actions/upload-artifact@v3
         with:
          name: Package
-         path: build/libs
+         path: lib/build/libs
