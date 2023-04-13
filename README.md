@@ -14,6 +14,11 @@ Note: Under construction!
 - Great test coverage
 - Covers test suite https://github.com/kawanet/msgpack-test-suite/blob/master/dist/msgpack-test-suite.json
 
+
+## Sonar
+
+https://sonarcloud.io/project/overview?id=dedee_kompack
+
 ## Open
 
 - BigNums not yet implemented - uint64... long
