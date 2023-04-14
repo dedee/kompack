@@ -33,6 +33,18 @@ class Sink(private val dest: ByteArray) {
         dest[length++] = (x and 0xffL).toByte()
     }
 
+    fun addUInt64(x: ULong) {
+        addInt64(x.toLong())
+//        dest[length++] = (x ushr 56 and 0xffL).toByte()
+//        dest[length++] = (x ushr 48 and 0xffL).toByte()
+//        dest[length++] = (x ushr 40 and 0xffL).toByte()
+//        dest[length++] = (x ushr 32 and 0xffL).toByte()
+//        dest[length++] = (x ushr 24 and 0xffL).toByte()
+//        dest[length++] = (x ushr 16 and 0xffL).toByte()
+//        dest[length++] = (x ushr 8 and 0xffL).toByte()
+//        dest[length++] = (x and 0xffL).toByte()
+    }
+
     fun addBytes(src: ByteArray, offset: Int, len: Int) {
         System.arraycopy(src, offset, this.dest, length, len)
         length += len

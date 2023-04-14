@@ -74,7 +74,7 @@ class SerializerIntegerTests {
         // +--------+--------+--------+--------+--------+--------+--------+--------+--------+
         // |  0xcf  |ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|
         // +--------+--------+--------+--------+--------+--------+--------+--------+--------+
-        assertEquals("cf00000000ffffffff", packer.pack(0xffffffff).build().hex())
+        assertEquals("cfffffffffffffffff", packer.pack(0xffffffffffffffffuL).build().hex())
     }
 
     @Test

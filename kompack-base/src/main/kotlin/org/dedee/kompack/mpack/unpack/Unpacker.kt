@@ -4,6 +4,7 @@ class Unpacker(private val source: Source) {
 
     private val intTypeUnpacker = IntTypeUnpacker()
     private val longTypeUnpacker = LongTypeUnpacker()
+    private val uLongTypeUnpacker = ULongTypeUnpacker()
     private val booleanTypeUnpacker = BooleanTypeUnpacker()
     private val binaryTypeUnpacker = BinaryTypeUnpacker()
     private val stringTypeUnpacker = StringTypeUnpacker()
@@ -18,6 +19,10 @@ class Unpacker(private val source: Source) {
 
     fun unpackLong(): Long? {
         return longTypeUnpacker.unpack(source)
+    }
+
+    fun unpackULong(): ULong? {
+        return uLongTypeUnpacker.unpack(source)
     }
 
     fun unpackBoolean(): Boolean? {
@@ -47,6 +52,7 @@ class Unpacker(private val source: Source) {
     fun unpackMap(): Map<Any, Any?>? {
         return mapTypeUnpacker.unpack(source)
     }
+
     // TEST
     fun unpackNil() {
         val b = source.pullByte()
@@ -54,6 +60,7 @@ class Unpacker(private val source: Source) {
             throw Exception()
         }
     }
+
     // TEST
     fun isNil(): Boolean {
         val b = source.pullByte()
@@ -99,7 +106,8 @@ class Unpacker(private val source: Source) {
                     0xc7, 0xc8, 0xc9 -> TODO("EXT")
                     0xca, 0xcb -> floatTypeUnpacker.unpack(source)
                     0xcc, 0xcd -> intTypeUnpacker.unpack(source)
-                    0xce, 0xcf -> longTypeUnpacker.unpack(source)
+                    0xce -> longTypeUnpacker.unpack(source)
+                    0xcf -> uLongTypeUnpacker.unpack(source)
                     0xd0, 0xd1, 0xd2 -> intTypeUnpacker.unpack(source)
                     0xd3 -> longTypeUnpacker.unpack(source)
                     0xd4, 0xd5, 0xd6, 0xd7, 0xd8 -> TODO("EXT")

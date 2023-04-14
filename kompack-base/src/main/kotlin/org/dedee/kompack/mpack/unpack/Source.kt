@@ -38,6 +38,19 @@ class Source(private val b: ByteArray) {
         return ret
     }
 
+    fun pullUInt64(): ULong {
+        var ret = 0uL
+        ret = ret or (b[pos++].toULong() and 0xffuL shl 56)
+        ret = ret or (b[pos++].toULong() and 0xffuL shl 48)
+        ret = ret or (b[pos++].toULong() and 0xffuL shl 40)
+        ret = ret or (b[pos++].toULong() and 0xffuL shl 32)
+        ret = ret or (b[pos++].toULong() and 0xffuL shl 24)
+        ret = ret or (b[pos++].toULong() and 0xffuL shl 16)
+        ret = ret or (b[pos++].toULong() and 0xffuL shl 8)
+        ret = ret or (b[pos++].toULong() and 0xffuL)
+        return ret
+    }
+
     fun back() {
         pos--
     }

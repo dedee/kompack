@@ -5,6 +5,7 @@ class Packer(private val sink: Sink) {
     private val booleanTypePacker = BooleanTypePacker()
     private val intTypePacker = IntTypePacker()
     private val longTypePacker = LongTypePacker()
+    private val ulongTypePacker = ULongTypePacker()
     private val floatTypePacker = FloatTypePacker()
     private val doubleTypePacker = DoubleTypePacker()
     private val stringTypePacker = StringTypePacker()
@@ -20,7 +21,13 @@ class Packer(private val sink: Sink) {
         } else if (o is Int) {
             pack(o)
         } else if (o is Long) {
-            pack(o)
+            if (o <= Int.MAX_VALUE) {
+                pack(o.toInt())
+            } else {
+                pack(o)
+            }
+        } else if (o is ULong) {
+            ulongTypePacker.pack(o, sink)
         } else if (o is Boolean) {
             pack(o)
         } else if (o is Float) {
@@ -55,6 +62,13 @@ class Packer(private val sink: Sink) {
         longTypePacker.pack(l, sink)
         return this
     }
+
+// not allowed
+//    fun pack(ul: ULong): Packer {
+//        ulongTypePacker.pack(ul, sink)
+//        return this
+//    }
+
 
     fun pack(f: Float): Packer {
         floatTypePacker.pack(f, sink)

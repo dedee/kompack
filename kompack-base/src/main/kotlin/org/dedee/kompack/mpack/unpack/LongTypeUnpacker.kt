@@ -40,13 +40,14 @@ class LongTypeUnpacker : TypeUnpacker<Long> {
                 l = source.pullInt64()
             }
 
-            0xcf -> {
-                // uint 64 stores a 64-bit big-endian unsigned integer
-                // +----+--------+--------+--------+--------+--------+--------+--------+--------+
-                // |0xcf|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|
-                // +----+--------+--------+--------+--------+--------+--------+--------+--------+
-                l = source.pullInt64()
-            }
+//            0xcf -> {
+//                // uint 64 stores a 64-bit big-endian unsigned integer
+//                // +----+--------+--------+--------+--------+--------+--------+--------+--------+
+//                // |0xcf|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|
+//                // +----+--------+--------+--------+--------+--------+--------+--------+--------+
+////                l = source.pullUInt64().toLong() // FIXME
+//                l = source.pullInt64() // FIXME
+//            }
 
             else -> {
                 source.back()

@@ -35,4 +35,30 @@ class MapTests {
 
         assertEquals(m, unpackedMap)
     }
+
+    @Test
+    fun `Map in map`() {
+        val m = mapOf<Any, Map<Any, Any>>(
+            Pair("persons", mapOf<Any, Any>(Pair("harry", 42), Pair("john", 25))),
+            Pair("colors", mapOf<Any, Any>(Pair(10, "green"), Pair(20, "gold")))
+        )
+        val encoded = Packer(Sink(ByteArray(100))).pack(m).build()
+        val unpackedMap = Unpacker(Source(encoded)).unpackMap()
+        println(unpackedMap)
+        assertEquals(m, unpackedMap)
+    }
+
+    @Test
+    fun `Array of maps`() {
+        val a = arrayOf(
+            mapOf<Any, Any>(Pair("harry", 42), Pair("john", 25)),
+            mapOf<Any, Any>(Pair(10, "green"), Pair(20, "gold"))
+        )
+        val encoded = Packer(Sink(ByteArray(100))).pack(a).build()
+        val unpackedArray = Unpacker(Source(encoded)).unpackArray()
+
+        assertEquals(2, unpackedArray!!.size)
+        assertEquals(42, (unpackedArray[0] as Map<*, *>)["harry"])
+        assertEquals("gold", (unpackedArray[1] as Map<*, *>)[20])
+    }
 }

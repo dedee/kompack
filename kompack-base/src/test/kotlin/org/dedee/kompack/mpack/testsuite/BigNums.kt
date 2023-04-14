@@ -4,13 +4,11 @@ import org.dedee.kompack.mpack.unpack.Source
 import org.dedee.kompack.mpack.unpack.Unpacker
 import org.dedee.kompack.mpack.util.dehex
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
 class BigNums {
 
-    @Disabled
     @Test
     fun `23 number-bignum`() {
         // "23.number-bignum.yaml": [
@@ -25,7 +23,7 @@ class BigNums {
         //      ]
         //    },
 
-        Assertions.assertEquals(4294967296, Unpacker(Source("cf-00-00-00-01-00-00-00-00".dehex())).unpackLong())
+        Assertions.assertEquals(4294967296uL, Unpacker(Source("cf-00-00-00-01-00-00-00-00".dehex())).unpackULong())
         Assertions.assertEquals(4294967296, Unpacker(Source("d3-00-00-00-01-00-00-00-00".dehex())).unpackLong())
         Assertions.assertEquals(
             4294967296.0,
@@ -65,7 +63,7 @@ class BigNums {
         //      ]
         //    },
 
-        Assertions.assertEquals(281474976710656, Unpacker(Source("cf-00-01-00-00-00-00-00-00".dehex())).unpackLong())
+        Assertions.assertEquals(281474976710656uL, Unpacker(Source("cf-00-01-00-00-00-00-00-00".dehex())).unpackULong())
         Assertions.assertEquals(281474976710656, Unpacker(Source("d3-00-01-00-00-00-00-00-00".dehex())).unpackLong())
         Assertions.assertEquals(
             281474976710656.0,
@@ -113,8 +111,8 @@ class BigNums {
             Unpacker(Source("d3-7f-ff-ff-ff-ff-ff-ff-ff".dehex())).unpackLong()
         )
         Assertions.assertEquals(
-            9223372036854775807,
-            Unpacker(Source("cf-7f-ff-ff-ff-ff-ff-ff-ff".dehex())).unpackLong()
+            9223372036854775807uL,
+            Unpacker(Source("cf-7f-ff-ff-ff-ff-ff-ff-ff".dehex())).unpackULong()
         )
 
         //    {
@@ -137,9 +135,7 @@ class BigNums {
         //      ]
         //    },
 
-        // BIG NUMS NOT YET SUPPORTED // KOTLIN
-//        Assertions.assertEquals(9223372036854775808, Unpacker(Source("cf-80-00-00-00-00-00-00-00".dehex())).unpackLong())
-        assertThrows<Exception> { Unpacker(Source("cf-80-00-00-00-00-00-00-00".dehex())).unpackLong() }
+        Assertions.assertEquals(9223372036854775808uL, Unpacker(Source("cf-80-00-00-00-00-00-00-00".dehex())).unpackULong())
 
         //    {
         //      "bignum": "-9223372036854775808",
@@ -148,12 +144,14 @@ class BigNums {
         //      ]
         //    },
 
-        // BIG NUMS NOT YET SUPPORTED // KOTLIN
-//        Assertions.assertEquals(
-//            -9223372036854775808,
-//            Unpacker(Source("d3-80-00-00-00-00-00-00-00".dehex())).unpackLong()
-//        )
-        assertThrows<Exception> { Unpacker(Source("d3-80-00-00-00-00-00-00-00".dehex())).unpackLong() }
+        Assertions.assertEquals(
+            "-9223372036854775808",
+            Unpacker(Source("d3-80-00-00-00-00-00-00-00".dehex())).unpackLong().toString()
+        )
+        Assertions.assertEquals(
+            "-9223372036854775808".toLong(),
+            Unpacker(Source("d3-80-00-00-00-00-00-00-00".dehex())).unpackLong()
+        )
 
         //    {
         //      "bignum": "18446744073709551615",
@@ -163,11 +161,9 @@ class BigNums {
         //    }
         //  ],
 
-        // BIG NUMS NOT YET SUPPORTED // KOTLIN
-//        Assertions.assertEquals(
-//            18446744073709551615,
-//            Unpacker(Source("cf-ff-ff-ff-ff-ff-ff-ff-ff".dehex())).unpackLong()
-//        )
-        assertThrows<Exception> { Unpacker(Source("cf-ff-ff-ff-ff-ff-ff-ff-ff".dehex())).unpackLong() }
+        Assertions.assertEquals(
+            18446744073709551615uL,
+            Unpacker(Source("cf-ff-ff-ff-ff-ff-ff-ff-ff".dehex())).unpackULong()
+        )
     }
 }

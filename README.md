@@ -21,4 +21,11 @@ https://sonarcloud.io/project/overview?id=dedee_kompack
 
 ## Open
 
+- Clarify pack/unpack UInt32 handling
+- Array/Map type improvements Kotlin generics / reified?
+- Full serialization features
+- Large array support. Different stream based API required
+- Exception concept in base
 - BigNums not yet implemented - uint64... long
+- Gradle build improvements
+- CDB impl

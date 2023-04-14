@@ -36,7 +36,7 @@ class PositiveNumbers {
         assertEquals(0, Unpacker(Source("cd-00-00".dehex())).unpackInt())
         assertThrows(Exception::class.java) { Unpacker(Source("ce-00-00-00-00".dehex())).unpackInt() }
         assertEquals(0, Unpacker(Source("ce-00-00-00-00".dehex())).unpackLong())
-        assertEquals(0, Unpacker(Source("cf-00-00-00-00-00-00-00-00".dehex())).unpackLong())
+        assertEquals(0uL, Unpacker(Source("cf-00-00-00-00-00-00-00-00".dehex())).unpackULong())
         assertEquals(0, Unpacker(Source("d0-00".dehex())).unpackInt())
         assertEquals(0, Unpacker(Source("d0-00".dehex())).unpackInt())
         assertEquals(0, Unpacker(Source("d1-00-00".dehex())).unpackInt())
@@ -67,7 +67,7 @@ class PositiveNumbers {
         assertEquals(1, Unpacker(Source("cd-00-01".dehex())).unpackInt())
         assertThrows(Exception::class.java) { Unpacker(Source("ce-00-00-00-01".dehex())).unpackInt() }
         assertEquals(1, Unpacker(Source("ce-00-00-00-01".dehex())).unpackLong())
-        assertEquals(1, Unpacker(Source("cf-00-00-00-00-00-00-00-01".dehex())).unpackLong())
+        assertEquals(1uL, Unpacker(Source("cf-00-00-00-00-00-00-00-01".dehex())).unpackULong())
         assertEquals(1, Unpacker(Source("d0-01".dehex())).unpackInt())
 
         assertEquals(1, Unpacker(Source("d0-01".dehex())).unpackInt())
@@ -97,7 +97,7 @@ class PositiveNumbers {
         assertEquals(127, Unpacker(Source("cd-00-7f".dehex())).unpackInt())
         assertThrows(Exception::class.java) { Unpacker(Source("ce-00-00-00-7f".dehex())).unpackInt() }
         assertEquals(127, Unpacker(Source("ce-00-00-00-7f".dehex())).unpackLong())
-        assertEquals(127, Unpacker(Source("cf-00-00-00-00-00-00-00-7f".dehex())).unpackLong())
+        assertEquals(127uL, Unpacker(Source("cf-00-00-00-00-00-00-00-7f".dehex())).unpackULong())
         assertEquals(127, Unpacker(Source("d0-7f".dehex())).unpackInt())
         assertEquals(127, Unpacker(Source("d1-00-7f".dehex())).unpackInt())
         assertEquals(127, Unpacker(Source("d2-00-00-00-7f".dehex())).unpackInt())
@@ -121,7 +121,7 @@ class PositiveNumbers {
         assertEquals(128, Unpacker(Source("cd-00-80".dehex())).unpackInt())
         assertThrows(Exception::class.java) { Unpacker(Source("ce-00-00-00-80".dehex())).unpackInt() }
         assertEquals(128, Unpacker(Source("ce-00-00-00-80".dehex())).unpackLong())
-        assertEquals(128, Unpacker(Source("cf-00-00-00-00-00-00-00-80".dehex())).unpackLong())
+        assertEquals(128uL, Unpacker(Source("cf-00-00-00-00-00-00-00-80".dehex())).unpackULong())
         assertEquals(128, Unpacker(Source("d1-00-80".dehex())).unpackInt())
         assertEquals(128, Unpacker(Source("d2-00-00-00-80".dehex())).unpackInt())
         assertEquals(128, Unpacker(Source("d3-00-00-00-00-00-00-00-80".dehex())).unpackLong())
@@ -143,7 +143,7 @@ class PositiveNumbers {
         assertEquals(255, Unpacker(Source("cd-00-ff".dehex())).unpackInt())
         assertThrows(Exception::class.java) { Unpacker(Source("ce-00-00-00-ff".dehex())).unpackInt() }
         assertEquals(255, Unpacker(Source("ce-00-00-00-ff".dehex())).unpackLong())
-        assertEquals(255, Unpacker(Source("cf-00-00-00-00-00-00-00-ff".dehex())).unpackLong())
+        assertEquals(255uL, Unpacker(Source("cf-00-00-00-00-00-00-00-ff".dehex())).unpackULong())
         assertEquals(255, Unpacker(Source("d1-00-ff".dehex())).unpackInt())
         assertEquals(255, Unpacker(Source("d2-00-00-00-ff".dehex())).unpackInt())
         assertEquals(255, Unpacker(Source("d3-00-00-00-00-00-00-00-ff".dehex())).unpackLong())
@@ -163,7 +163,7 @@ class PositiveNumbers {
         assertEquals(256, Unpacker(Source("cd-01-00".dehex())).unpackInt())
         assertThrows(Exception::class.java) { Unpacker(Source("ce-00-00-01-00".dehex())).unpackInt() }
         assertEquals(256, Unpacker(Source("ce-00-00-01-00".dehex())).unpackLong())
-        assertEquals(256, Unpacker(Source("cf-00-00-00-00-00-00-01-00".dehex())).unpackLong())
+        assertEquals(256uL, Unpacker(Source("cf-00-00-00-00-00-00-01-00".dehex())).unpackULong())
         assertEquals(256, Unpacker(Source("d1-01-00".dehex())).unpackInt())
         assertEquals(256, Unpacker(Source("d2-00-00-01-00".dehex())).unpackInt())
         assertEquals(256, Unpacker(Source("d3-00-00-00-00-00-00-01-00".dehex())).unpackLong())
@@ -182,7 +182,7 @@ class PositiveNumbers {
         assertEquals(65535, Unpacker(Source("cd-ff-ff".dehex())).unpackInt())
         assertThrows(Exception::class.java) { Unpacker(Source("ce-00-00-ff-ff".dehex())).unpackInt() }
         assertEquals(65535, Unpacker(Source("ce-00-00-ff-ff".dehex())).unpackLong())
-        assertEquals(65535, Unpacker(Source("cf-00-00-00-00-00-00-ff-ff".dehex())).unpackLong())
+        assertEquals(65535uL, Unpacker(Source("cf-00-00-00-00-00-00-ff-ff".dehex())).unpackULong())
         assertEquals(65535, Unpacker(Source("d2-00-00-ff-ff".dehex())).unpackInt())
         assertEquals(65535, Unpacker(Source("d3-00-00-00-00-00-00-ff-ff".dehex())).unpackLong())
 
@@ -198,7 +198,7 @@ class PositiveNumbers {
 
         assertThrows(Exception::class.java) { Unpacker(Source("ce-00-01-00-00".dehex())).unpackInt() }
         assertEquals(65536, Unpacker(Source("ce-00-01-00-00".dehex())).unpackLong())
-        assertEquals(65536, Unpacker(Source("cf-00-00-00-00-00-01-00-00".dehex())).unpackLong())
+        assertEquals(65536uL, Unpacker(Source("cf-00-00-00-00-00-01-00-00".dehex())).unpackULong())
         assertEquals(65536, Unpacker(Source("d2-00-01-00-00".dehex())).unpackInt())
         assertEquals(65536, Unpacker(Source("d3-00-00-00-00-00-01-00-00".dehex())).unpackLong())
 
@@ -214,7 +214,7 @@ class PositiveNumbers {
 
         assertThrows(Exception::class.java) { Unpacker(Source("ce-7f-ff-ff-ff".dehex())).unpackInt() }
         assertEquals(2147483647, Unpacker(Source("ce-7f-ff-ff-ff".dehex())).unpackLong())
-        assertEquals(2147483647, Unpacker(Source("cf-00-00-00-00-7f-ff-ff-ff".dehex())).unpackLong())
+        assertEquals(2147483647uL, Unpacker(Source("cf-00-00-00-00-7f-ff-ff-ff".dehex())).unpackULong())
         assertEquals(2147483647, Unpacker(Source("d2-7f-ff-ff-ff".dehex())).unpackInt())
         assertEquals(2147483647, Unpacker(Source("d3-00-00-00-00-7f-ff-ff-ff".dehex())).unpackLong())
 
@@ -231,7 +231,7 @@ class PositiveNumbers {
 
         assertThrows(Exception::class.java) { Unpacker(Source("ce-80-00-00-0".dehex())).unpackInt() }
         assertEquals(2147483648, Unpacker(Source("ce-80-00-00-00".dehex())).unpackLong())
-        assertEquals(2147483648, Unpacker(Source("cf-00-00-00-00-80-00-00-00".dehex())).unpackLong())
+        assertEquals(2147483648uL, Unpacker(Source("cf-00-00-00-00-80-00-00-00".dehex())).unpackULong())
         assertEquals(2147483648, Unpacker(Source("d3-00-00-00-00-80-00-00-00".dehex())).unpackLong())
         assertEquals(
             2147483648.0,
@@ -257,7 +257,7 @@ class PositiveNumbers {
 
         assertThrows(Exception::class.java) { Unpacker(Source("ce-ff-ff-ff-ff".dehex())).unpackInt() }
         assertEquals(4294967295, Unpacker(Source("ce-ff-ff-ff-ff".dehex())).unpackLong())
-        assertEquals(4294967295, Unpacker(Source("cf-00-00-00-00-ff-ff-ff-ff".dehex())).unpackLong())
+        assertEquals(4294967295uL, Unpacker(Source("cf-00-00-00-00-ff-ff-ff-ff".dehex())).unpackULong())
         assertEquals(4294967295, Unpacker(Source("d3-00-00-00-00-ff-ff-ff-ff".dehex())).unpackLong())
         assertEquals(
             4294967295.0,
