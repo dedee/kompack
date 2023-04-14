@@ -6,7 +6,7 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    environment: dev
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 11 for x64
@@ -22,34 +22,5 @@ jobs:
       - name: Build with Gradle
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
-          arguments: build test
+          arguments: build test sonar
 
-  sonarcloud:
-    name: SonarCloud
-    runs-on: ubuntu-latest
-    environment: dev
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-#          arguments: build test jacocoTestReport sonar
-
-      # gradle test jacocoTestReport sonarqube
-      # later upload via gradle?!
-      # https://docs.github.com/en/actions/publishing-packages/publishing-java-packages-with-gradle
-#      - name: Upload base
-#        uses: actions/upload-artifact@v3
-#        with:
-#         name: base
-#         path: kompack-base/build/libs
-#      - name: Upload kotlin-serialization
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: base
-#          path: kompack-kotlin-serialization/build/libs
