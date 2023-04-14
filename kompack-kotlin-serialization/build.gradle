@@ -1,11 +1,9 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.8.10'
+    id 'org.jetbrains.kotlin.jvm'
     id 'java-library'
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.10'
-}
-
-repositories {
-    mavenCentral()
+    id 'org.jetbrains.kotlin.plugin.serialization'
+    id 'jacoco'
+    id 'org.sonarqube'
 }
 
 dependencies {
@@ -17,7 +15,14 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
 }
 
-tasks.named('test') {
+test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
 }
 
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+    }
+}
