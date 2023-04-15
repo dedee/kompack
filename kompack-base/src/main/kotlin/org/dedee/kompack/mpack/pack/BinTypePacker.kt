@@ -2,13 +2,8 @@ package org.dedee.kompack.mpack.pack
 
 class BinTypePacker : TypePacker<ByteArray> {
     override fun pack(obj: ByteArray, sink: Sink) {
-        packBin(obj, sink)
-    }
-
-
-    fun packBin(b: ByteArray, sink: Sink) {
-        packBinLength(b.size, sink)
-        sink.addBytes(b)
+        packBinLength(obj.size, sink)
+        sink.addBytes(obj)
     }
 
     private fun packBinLength(len: Int, sink: Sink) {

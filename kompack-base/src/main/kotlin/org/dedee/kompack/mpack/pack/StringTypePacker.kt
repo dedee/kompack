@@ -2,12 +2,7 @@ package org.dedee.kompack.mpack.pack
 
 class StringTypePacker : TypePacker<String> {
     override fun pack(obj: String, sink: Sink) {
-        packString(obj, sink)
-    }
-
-
-    fun packString(s: String, sink: Sink) {
-        val b = s.encodeToByteArray()
+        val b = obj.encodeToByteArray()
         packStringLength(b.size, sink)
         sink.addBytes(b)
     }
