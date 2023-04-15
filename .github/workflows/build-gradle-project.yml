@@ -23,5 +23,11 @@ jobs:
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
 #          arguments: build test
-          arguments: build test sonar
+          arguments: |
+            -DsystemProp.sonar.host.url=https://sonarcloud.io
+            -systemProp.sonar.login=${{ secrets.SONAR_TOKEN }}
+            -DsystemProp.sonar.organization=dedee
+            build
+            test
+            sonar
 
