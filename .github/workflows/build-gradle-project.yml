@@ -25,7 +25,7 @@ jobs:
 #          arguments: build test
           arguments: |
             -DsystemProp.sonar.host.url=https://sonarcloud.io
-            -systemProp.sonar.login=${{ secrets.SONAR_TOKEN }}
+            -DsystemProp.sonar.login=${{ secrets.SONAR_TOKEN }}
             -DsystemProp.sonar.organization=dedee
             build
             test
