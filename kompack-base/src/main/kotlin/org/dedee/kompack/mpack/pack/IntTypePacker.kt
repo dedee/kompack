@@ -1,10 +1,7 @@
 package org.dedee.kompack.mpack.pack
+
 class IntTypePacker : TypePacker<Int> {
     override fun pack(obj: Int, sink: Sink) {
-        packInt(obj, sink)
-    }
-
-    fun packInt(obj: Int, sink: Sink) {
         if (obj < -32) {
             if (obj < -32768) {
                 packInt32(obj, sink)
