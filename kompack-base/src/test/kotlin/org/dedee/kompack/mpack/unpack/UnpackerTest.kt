@@ -42,4 +42,14 @@ class UnpackerTest {
 //            assertEquals(it, d.unpackInt())
 //        }
     }
+
+    @Test
+    fun reifiedTests() {
+//        val j:Int= Unpacker(Source(byteArrayOf(0x12.toByte()))).unpackk()
+        val i: Int? = Unpacker(Source(byteArrayOf(0x12.toByte()))).unpakk()
+        println(i)
+        val j: Long? = Unpacker(Source(byteArrayOf(0x12.toByte()))).unpakk()
+        println(j)
+    }
+
 }

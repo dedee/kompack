@@ -53,6 +53,16 @@ class Maps {
 
         Assertions.assertEquals(mapOf(Pair("a", "A")), Unpacker(Source("81-a1-61-a1-41".dehex())).unpackMap())
         Assertions.assertEquals(mapOf(Pair("a", "A")), Unpacker(Source("de-00-01-a1-61-a1-41".dehex())).unpackMap())
-        Assertions.assertEquals(mapOf(Pair("a", "A")), Unpacker(Source("df-00-00-00-01-a1-61-a1-41".dehex())).unpackMap())
+        Assertions.assertEquals(
+            mapOf(Pair("a", "A")),
+            Unpacker(Source("df-00-00-00-01-a1-61-a1-41".dehex())).unpackMap()
+        )
+
+        val m: Map<String, String>? = Unpacker(Source("81-a1-61-a1-41".dehex())).unpakk()
+        println(m)
+        Assertions.assertEquals(
+            mapOf(Pair("a", "A")),
+            m
+        )
     }
 }

@@ -3,11 +3,6 @@ package org.dedee.kompack.mpack.unpack
 class IntTypeUnpacker : TypeUnpacker<Int> {
 
     override fun unpack(source: Source): Int? {
-        return unpackInt(source)
-    }
-
-
-    private fun unpackInt(source: Source): Int? {
         val b = source.pullByte()
 
         // nil:

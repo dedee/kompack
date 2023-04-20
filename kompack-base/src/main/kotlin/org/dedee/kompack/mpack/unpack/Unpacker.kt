@@ -1,6 +1,9 @@
 package org.dedee.kompack.mpack.unpack
 
-class Unpacker(private val source: Source) {
+import kotlin.reflect.KClass
+
+
+class Unpacker(val source: Source) {
 
     private val intTypeUnpacker = IntTypeUnpacker()
     private val longTypeUnpacker = LongTypeUnpacker()
@@ -12,6 +15,40 @@ class Unpacker(private val source: Source) {
     private val doubleTypeUnpacker = DoubleTypeUnpacker()
     private val arrayTypeUnpacker = ArrayTypeUnpacker()
     private val mapTypeUnpacker = MapTypeUnpacker()
+
+    val typeUnpackerMap: Map<KClass<*>, TypeUnpacker<*>> = mapOf(
+        Pair(Int::class, IntTypeUnpacker()),
+        Pair(Long::class, LongTypeUnpacker()),
+    )
+
+
+    inline fun <reified T : Any> unpakk(): T? {
+        return when {
+            isNil() -> null
+
+            T::class == Int::class -> unpackInt() as T
+            T::class == Long::class -> unpackLong() as T
+            T::class == ULong::class -> unpackULong() as T
+
+            T::class == Boolean::class -> unpackBoolean() as T
+            T::class == ByteArray::class -> unpackBinary() as T
+            T::class == String::class -> unpackString() as T
+            T::class == Float::class -> unpackFloat() as T
+            T::class == Double::class -> unpackDouble() as T
+
+            T::class == Array::class -> unpackArray() as T
+            T::class == Map::class -> unpackMap() as T
+
+            else -> TODO()
+        }
+    }
+
+    inline fun <reified T : Any> unpakk2(): T? {
+        if (isNil()) {
+            return null
+        }
+        return typeUnpackerMap[T::class]!!.unpack(source) as T?
+    }
 
     fun unpackInt(): Int? {
         return intTypeUnpacker.unpack(source)
@@ -52,6 +89,10 @@ class Unpacker(private val source: Source) {
     fun unpackMap(): Map<Any, Any?>? {
         return mapTypeUnpacker.unpack(source)
     }
+
+//    inline fun <reified T, V> unpakkMap(): Map<T, V?>? {
+//        return mapTypeUnpacker.unpack(source) as Map<T, V?>
+//    }
 
     // TEST
     fun unpackNil() {
@@ -120,17 +161,17 @@ class Unpacker(private val source: Source) {
         }
     }
 
-    inline fun <reified T> unpack2(): T? {
-        val o = unpack()
-        if (o == null) {
-            return null
-        } else if (o is T) {
-            return o
-        } else {
-            println("$o ???")
-            TODO()
-        }
-    }
+//    inline fun <reified T> unpack2(): T? {
+//        val o = unpack()
+//        if (o == null) {
+//            return null
+//        } else if (o is T) {
+//            return o
+//        } else {
+//            println("$o ???")
+//            TODO()
+//        }
+//    }
 
 
 }
