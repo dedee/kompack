@@ -39,6 +39,7 @@ class MessagePackDecoder(
 
     // TEST NULLABILITY
     override fun decodeNotNullMark(): Boolean {
+        // all is nullable
         return !unpacker.isNil()
     }
 
@@ -46,6 +47,18 @@ class MessagePackDecoder(
     override fun decodeNull(): Nothing? {
         unpacker.unpackNil()
         return null
+    }
+
+    override fun decodeInt(): Int {
+        return unpacker.unpackInt()!!
+    }
+
+    override fun decodeByte(): Byte {
+        return unpacker.unpackInt()!!.toByte()
+    }
+
+    override fun decodeShort(): Short {
+        return unpacker.unpackInt()!!.toShort()
     }
 
     companion object {

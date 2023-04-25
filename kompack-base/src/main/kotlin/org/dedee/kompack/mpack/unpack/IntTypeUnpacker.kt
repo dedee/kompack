@@ -72,7 +72,14 @@ class IntTypeUnpacker : TypeUnpacker<Int> {
                     }
 
                     else -> {
-                        throw Exception()
+                        // TODO optimize fallback?
+                        source.back()
+                        val l = LongTypeUnpacker().unpack(source)!!
+                        if (l > Int.MAX_VALUE) {
+                            throw Exception("Decoded long $l doesnt fit into Int type")
+                        } else {
+                            ret = l.toInt()
+                        }
                     }
                 }
             }

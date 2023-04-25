@@ -18,18 +18,48 @@ class MessagePackEncoder(
 
     override val serializersModule: SerializersModule = EmptySerializersModule()
 
-//    override fun encodeBoolean(value: Boolean) {
-//        packer.pack(value)
-//    }
-
     override fun encodeNull() {
         packer.packNil()
     }
+    override fun encodeNotNullMark() {
+        // msg pack includes null handling nothing to do
+    }
 
-//    override fun encodeNotNullMark() {
-//        packer.pack(1)
-//    }
+    override fun encodeBoolean(value: Boolean) {
+        packer.pack(value)
+    }
 
+    override fun encodeByte(value: Byte) {
+        packer.pack(value.toInt())
+    }
+
+    override fun encodeChar(value: Char) {
+        packer.pack(value.toString())
+    }
+
+    override fun encodeDouble(value: Double) {
+        packer.pack(value)
+    }
+
+    override fun encodeFloat(value: Float) {
+        packer.pack(value)
+    }
+
+    override fun encodeInt(value: Int) {
+        packer.pack(value)
+    }
+
+    override fun encodeLong(value: Long) {
+        packer.pack(value)
+    }
+
+    override fun encodeShort(value: Short) {
+        packer.pack(value.toInt())
+    }
+
+    override fun encodeString(value: String) {
+        packer.pack(value)
+    }
 
     override fun encodeValue(value: Any) {
         packer.pack(value)
