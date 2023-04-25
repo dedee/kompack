@@ -24,28 +24,7 @@ class UnpackerTest {
     }
 
     @Test
-    fun foo() {
-        val dest = ByteArray(100)
-        val s = Packer(Sink(dest))
-
-        val t = listOf(0, 5, -5, 0xff, -0xff, 0x7fff, 255, 256, 127, 128, -1, -2, Int.MIN_VALUE, Int.MAX_VALUE)
-
-        // Int.MAX_VALUE // 7FFFFFFF
-        // UInt.MAX_VALUE
-
-        t.forEach {
-            s.pack(it)
-        }
-
-//        val d = Unpacker(Source(s.build()))
-//        t.forEach {
-//            assertEquals(it, d.unpackInt())
-//        }
-    }
-
-    @Test
     fun reifiedTests() {
-//        val j:Int= Unpacker(Source(byteArrayOf(0x12.toByte()))).unpackk()
         val i: Int? = Unpacker(Source(byteArrayOf(0x12.toByte()))).unpakk()
         println(i)
         val j: Long? = Unpacker(Source(byteArrayOf(0x12.toByte()))).unpakk()

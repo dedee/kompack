@@ -107,34 +107,34 @@ class Unpacker(val source: Source) {
         val b = source.pullByte()
         source.back()
 
-        when (b) {
+        return when (b) {
             in 0x00..0x7f -> {
                 // positive fixint
-                return intTypeUnpacker.unpack(source)
+                intTypeUnpacker.unpack(source)
             }
 
             in 0x80..0x8f -> {
                 // fixmap
-                return mapTypeUnpacker.unpack(source)
+                mapTypeUnpacker.unpack(source)
             }
 
             in 0x90..0x9f -> {
                 // fixarray
-                return arrayTypeUnpacker.unpack(source)
+                arrayTypeUnpacker.unpack(source)
             }
 
             in 0xa0..0xbf -> {
                 // fixstr
-                return stringTypeUnpacker.unpack(source)
+                stringTypeUnpacker.unpack(source)
             }
 
             in 0xe0..0xff -> {
-                return intTypeUnpacker.unpack(source)
+                intTypeUnpacker.unpack(source)
             }
 
             else -> {
-                return when (b) {
-                    0x0c0 -> null
+                when (b) {
+                    0xc0 -> null
                     0xc1 -> TODO("NOT USED")
                     0xc2, 0xc3 -> booleanTypeUnpacker.unpack(source)
                     0xc4, 0xc5, 0xc6 -> binaryTypeUnpacker.unpack(source)

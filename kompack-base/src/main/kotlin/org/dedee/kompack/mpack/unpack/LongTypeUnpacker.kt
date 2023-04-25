@@ -45,8 +45,7 @@ class LongTypeUnpacker : TypeUnpacker<Long> {
 //                // +----+--------+--------+--------+--------+--------+--------+--------+--------+
 //                // |0xcf|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|
 //                // +----+--------+--------+--------+--------+--------+--------+--------+--------+
-////                l = source.pullUInt64().toLong() // FIXME
-//                l = source.pullInt64() // FIXME
+//                l = source.pullUInt64().toLong()
 //            }
 
             else -> {
