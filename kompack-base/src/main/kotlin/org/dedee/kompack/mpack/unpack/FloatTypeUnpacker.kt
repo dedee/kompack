@@ -3,7 +3,7 @@ package org.dedee.kompack.mpack.unpack
 class FloatTypeUnpacker : TypeUnpacker<Float> {
 
     override fun unpack(source: Source): Float? {
-        when (source.pullByte()) {
+        when (val type = source.pullByte()) {
             0xc0 -> {
                 // nil:
                 // +------+
@@ -21,7 +21,7 @@ class FloatTypeUnpacker : TypeUnpacker<Float> {
             }
 
             else -> {
-                throw Exception() // FIXME
+                throw Exception("Could not unpack, unknown type $type")
             }
         }
     }

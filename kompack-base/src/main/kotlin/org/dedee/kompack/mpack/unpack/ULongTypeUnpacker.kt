@@ -6,7 +6,7 @@ class ULongTypeUnpacker : TypeUnpacker<ULong> {
     }
 
     private fun unpackULong(source: Source): ULong? {
-        return when (source.pullByte()) {
+        return when (val b = source.pullByte()) {
             // nil:
             // +------+
             // | 0xc0 |
@@ -22,7 +22,7 @@ class ULongTypeUnpacker : TypeUnpacker<ULong> {
             }
 
             else -> {
-                throw Exception()
+                throw Exception("Could not unpack, unknown type $b")
             }
         }
     }

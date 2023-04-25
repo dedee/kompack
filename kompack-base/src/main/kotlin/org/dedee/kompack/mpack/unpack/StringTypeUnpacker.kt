@@ -4,6 +4,15 @@ class StringTypeUnpacker : TypeUnpacker<String> {
 
     override fun unpack(source: Source): String? {
         val b = source.pullByte()
+
+        // nil:
+        // +------+
+        // | 0xc0 |
+        // +------+
+        if (b == 0xc0) {
+            return null
+        }
+
         // XXXXX is a 5-bit unsigned integer which represents N
         // YYYYYYYY is a 8-bit unsigned integer which represents N
         // ZZZZZZZZ_ZZZZZZZZ is a 16-bit big-endian unsigned integer which represents N
@@ -43,7 +52,7 @@ class StringTypeUnpacker : TypeUnpacker<String> {
                     }
 
                     else -> {
-                        throw Exception()
+                        throw Exception("Could not unpack, unknown type $b")
                     }
                 }
             }

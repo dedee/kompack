@@ -1,8 +1,9 @@
 package org.dedee.kompack.mpack.unpack
+
 class DoubleTypeUnpacker : TypeUnpacker<Double> {
 
     override fun unpack(source: Source): Double? {
-        when (source.pullByte()) {
+        when (val type = source.pullByte()) {
             0xc0 -> {
                 // nil:
                 // +------+
@@ -20,7 +21,7 @@ class DoubleTypeUnpacker : TypeUnpacker<Double> {
             }
 
             else -> {
-                throw Exception() // FIXME
+                throw Exception("Could not unpack, unknown type $type")
             }
         }
     }

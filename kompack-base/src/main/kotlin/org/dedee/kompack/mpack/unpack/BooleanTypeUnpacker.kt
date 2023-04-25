@@ -3,7 +3,7 @@ package org.dedee.kompack.mpack.unpack
 class BooleanTypeUnpacker : TypeUnpacker<Boolean> {
 
     override fun unpack(source: Source): Boolean? {
-        when (source.pullByte()) {
+        when (val type = source.pullByte()) {
             0xc0 -> {
                 // nil:
                 // +------+
@@ -29,7 +29,7 @@ class BooleanTypeUnpacker : TypeUnpacker<Boolean> {
             }
 
             else -> {
-                throw Exception() // FIXME
+                throw Exception("Could not unpack, unknown type $type")
             }
         }
     }

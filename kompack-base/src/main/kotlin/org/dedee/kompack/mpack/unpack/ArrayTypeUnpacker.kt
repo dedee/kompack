@@ -48,7 +48,7 @@ class ArrayTypeUnpacker : TypeUnpacker<Array<Any>> {
                 }
 
                 else -> {
-                    throw Exception()
+                    throw Exception("Could not unpack, unknown type $b")
                 }
             }
         }

@@ -50,6 +50,7 @@ class LongTypeUnpacker : TypeUnpacker<Long> {
 //            }
 
             else -> {
+                // TODO maybe restrict to int types here
                 source.back()
                 l = intTypeUnpacker.unpack(source)!!.toLong()
             }

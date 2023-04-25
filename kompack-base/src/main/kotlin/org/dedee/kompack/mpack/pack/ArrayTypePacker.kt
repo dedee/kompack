@@ -9,6 +9,7 @@ class ArrayTypePacker : TypePacker<Array<Any>> {
             packer.pack(it)
         }
     }
+
     private fun packArrayStart(size: Int, sink: Sink) {
         if (size < 16) {
             sink.addByte(0x90 or size)

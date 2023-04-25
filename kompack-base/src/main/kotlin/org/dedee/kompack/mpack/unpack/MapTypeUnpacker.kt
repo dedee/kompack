@@ -34,7 +34,7 @@ class MapTypeUnpacker : TypeUnpacker<Map<Any, Any?>> {
                 0xc0 -> return null
                 0xde -> source.pullInt16()
                 0xdf -> source.pullInt32()
-                else -> throw Exception()
+                else -> throw Exception("Could not unpack, unknown type $b")
             }
         }
 

@@ -71,8 +71,7 @@ class IntTypeUnpacker : TypeUnpacker<Int> {
                         ret = source.pullInt16().and(0xffff)
                     }
 
-                    else -> {
-                        // TODO optimize fallback?
+                    0xce, 0xd3 -> {
                         source.back()
                         val l = LongTypeUnpacker().unpack(source)!!
                         if (l > Int.MAX_VALUE) {
@@ -80,6 +79,10 @@ class IntTypeUnpacker : TypeUnpacker<Int> {
                         } else {
                             ret = l.toInt()
                         }
+                    }
+
+                    else -> {
+                        throw Exception("Could not unpack, unknown type $b")
                     }
                 }
             }

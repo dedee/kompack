@@ -16,34 +16,58 @@ class Packer(private val sink: Sink) {
     fun build() = sink.build()
 
     fun pack(o: Any?): Packer {
-        if (o == null) {
-            packNil()
-        } else if (o is Int) {
-            pack(o)
-        } else if (o is Long) {
-            if (o <= Int.MAX_VALUE) {
-                pack(o.toInt())
-            } else {
+        when {
+            o == null -> {
+                packNil()
+            }
+
+            o is Int -> {
                 pack(o)
             }
-        } else if (o is ULong) {
-            ulongTypePacker.pack(o, sink)
-        } else if (o is Boolean) {
-            pack(o)
-        } else if (o is Float) {
-            pack(o)
-        } else if (o is Double) {
-            pack(o)
-        } else if (o is String) {
-            pack(o)
-        } else if (o is ByteArray) {
-            pack(o)
-        } else if (o is Array<*> && o.isArrayOf<Any>()) {
-            pack(o as Array<Any>)
-        } else if (o is Map<*, *>) {
-            pack(o as Map<Any, Any?>)
-        } else {
-            TODO("Type of $o ?? ${o::class}")
+
+            o is Long -> {
+                if (o <= Int.MAX_VALUE) {
+                    pack(o.toInt())
+                } else {
+                    pack(o)
+                }
+            }
+
+            o is ULong -> {
+                ulongTypePacker.pack(o, sink)
+            }
+
+            o is Boolean -> {
+                pack(o)
+            }
+
+            o is Float -> {
+                pack(o)
+            }
+
+            o is Double -> {
+                pack(o)
+            }
+
+            o is String -> {
+                pack(o)
+            }
+
+            o is ByteArray -> {
+                pack(o)
+            }
+
+            o is Array<*> && o.isArrayOf<Any>() -> {
+                pack(o as Array<Any>)
+            }
+
+            o is Map<*, *> -> {
+                pack(o as Map<Any, Any?>)
+            }
+
+            else -> {
+                TODO("Type of $o ?? ${o::class}")
+            }
         }
         return this
     }

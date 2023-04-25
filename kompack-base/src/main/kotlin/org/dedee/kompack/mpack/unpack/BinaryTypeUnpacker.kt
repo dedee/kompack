@@ -1,6 +1,6 @@
 package org.dedee.kompack.mpack.unpack
 
-class BinaryTypeUnpacker:TypeUnpacker<ByteArray> {
+class BinaryTypeUnpacker : TypeUnpacker<ByteArray> {
 
     override fun unpack(source: Source): ByteArray? {
         //* XXXXXXXX is a 8-bit unsigned integer which represents N
@@ -8,7 +8,7 @@ class BinaryTypeUnpacker:TypeUnpacker<ByteArray> {
         //* ZZZZZZZZ_ZZZZZZZZ_ZZZZZZZZ_ZZZZZZZZ is a 32-bit big-endian unsigned integer which represents N
         //* N is the length of data
 
-        when (source.pullByte()) {
+        when (val type = source.pullByte()) {
             0xc0 -> {
                 // nil:
                 // +------+
@@ -46,7 +46,7 @@ class BinaryTypeUnpacker:TypeUnpacker<ByteArray> {
             }
 
             else -> {
-                throw Exception() // FIXME
+                throw Exception("Could not unpack, unknown type $type")
             }
         }
     }
