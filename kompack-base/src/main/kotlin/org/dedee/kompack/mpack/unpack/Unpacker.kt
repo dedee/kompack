@@ -90,19 +90,13 @@ class Unpacker(val source: Source) {
         return mapTypeUnpacker.unpack(source)
     }
 
-//    inline fun <reified T, V> unpakkMap(): Map<T, V?>? {
-//        return mapTypeUnpacker.unpack(source) as Map<T, V?>
-//    }
-
-    // TEST
     fun unpackNil() {
         val b = source.pullByte()
         if (b != 0x0c0) {
-            throw Exception()
+            throw Exception("Could not unpack, unknown type $b")
         }
     }
 
-    // TEST
     fun isNil(): Boolean {
         val b = source.pullByte()
         source.back()
@@ -160,18 +154,5 @@ class Unpacker(val source: Source) {
             }
         }
     }
-
-//    inline fun <reified T> unpack2(): T? {
-//        val o = unpack()
-//        if (o == null) {
-//            return null
-//        } else if (o is T) {
-//            return o
-//        } else {
-//            println("$o ???")
-//            TODO()
-//        }
-//    }
-
 
 }

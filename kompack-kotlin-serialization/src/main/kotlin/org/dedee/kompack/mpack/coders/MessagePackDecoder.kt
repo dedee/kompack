@@ -37,14 +37,13 @@ class MessagePackDecoder(
 
     override fun decodeSequentially(): Boolean = true
 
-    // TEST NULLABILITY
     override fun decodeNotNullMark(): Boolean {
-        // all is nullable
+        // all is nullable. if current object is not null we return true
         return !unpacker.isNil()
     }
 
-    // TEST
     override fun decodeNull(): Nothing? {
+        // Decodes on null
         unpacker.unpackNil()
         return null
     }

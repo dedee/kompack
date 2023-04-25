@@ -9,11 +9,14 @@ Note: Under construction!
 ## Goals
 
 - Provide Kotlin implementation of http://msgpack.org specification
+- Provide kotlinx.serialization engine using MessagePack format
 - Support Kotlin multiplatform and Native (beside JVM)
-- High performance
-- Great test coverage
-- Covers test suite https://github.com/kawanet/msgpack-test-suite/blob/master/dist/msgpack-test-suite.json
-
+- Minimal dependencies to other libraries
+- High performance, low memory footprint
+- Good test coverage
+- Sonar code analytics
+- Covers msgpack cross compatibility test
+  suite https://github.com/kawanet/msgpack-test-suite/blob/master/dist/msgpack-test-suite.json
 
 ## Sonar
 
