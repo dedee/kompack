@@ -5,7 +5,6 @@ import org.dedee.kompack.mpack.unpack.Unpacker
 import org.dedee.kompack.mpack.util.dehex
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 
 class BigNums {
 

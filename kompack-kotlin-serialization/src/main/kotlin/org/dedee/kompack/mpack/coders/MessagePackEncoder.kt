@@ -75,12 +75,13 @@ class MessagePackEncoder(
     }
 
     companion object {
-        fun <T> encodeToByteArray(serializer: SerializationStrategy<T>, value: T): ByteArray {
-            val messagePackEncoder = MessagePackEncoder()
+        fun <T> encodeToByteArray(serializer: SerializationStrategy<T>, value: T, messagePackEncoder: MessagePackEncoder = MessagePackEncoder()): ByteArray {
             messagePackEncoder.encodeSerializableValue(serializer, value)
             return messagePackEncoder.build()
         }
 
         inline fun <reified T> encodeToByteArray(value: T) = encodeToByteArray(serializer(), value)
+
+        inline fun <reified T> encodeToByteArray(value: T, packer: Packer) = encodeToByteArray(serializer(), value, MessagePackEncoder(packer))
     }
 }

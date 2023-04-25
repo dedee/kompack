@@ -5,8 +5,6 @@ import org.dedee.kompack.mpack.unpack.Unpacker
 import org.dedee.kompack.mpack.util.dehex
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import kotlin.Array
-import kotlin.collections.Map
 
 class Nested {
 
