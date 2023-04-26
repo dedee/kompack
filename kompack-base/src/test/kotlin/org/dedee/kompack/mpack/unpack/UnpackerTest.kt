@@ -1,7 +1,7 @@
 package org.dedee.kompack.mpack.unpack
 
 import org.dedee.kompack.mpack.pack.Packer
-import org.dedee.kompack.mpack.pack.Sink
+import org.dedee.kompack.mpack.pack.SinkInMemory
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
@@ -26,7 +26,7 @@ class UnpackerTest {
     @Test
     fun foo() {
         val dest = ByteArray(100)
-        val s = Packer(Sink(dest))
+        val s = Packer(SinkInMemory(dest))
 
         val t = listOf(0, 5, -5, 0xff, -0xff, 0x7fff, 255, 256, 127, 128, -1, -2, Int.MIN_VALUE, Int.MAX_VALUE)
 

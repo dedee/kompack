@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 class SerializerBinTests {
 
     private val dest = ByteArray(70_000)
-    private val packer = Packer(Sink(dest))
+    private val packer = Packer(SinkInMemory(dest))
 
     @Test
     fun `bin 8 stores a byte array whose length is upto 255 bytes`() {

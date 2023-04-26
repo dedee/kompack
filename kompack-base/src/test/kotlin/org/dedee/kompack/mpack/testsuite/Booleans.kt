@@ -1,7 +1,7 @@
 package org.dedee.kompack.mpack.testsuite
 
 import org.dedee.kompack.mpack.pack.Packer
-import org.dedee.kompack.mpack.pack.Sink
+import org.dedee.kompack.mpack.pack.SinkInMemory
 import org.dedee.kompack.mpack.unpack.Source
 import org.dedee.kompack.mpack.unpack.Unpacker
 import org.dedee.kompack.mpack.util.dehex
@@ -37,8 +37,8 @@ class Booleans {
     fun otherStuff() {
         assertNull(Unpacker(Source("c0".dehex())).unpackBoolean())
         assertThrows(Exception::class.java) { Unpacker(Source("01".dehex())).unpackBoolean() }
-        assertArrayEquals("c2".dehex(), Packer(Sink(ByteArray(5))).pack(false).build())
-        assertArrayEquals("c3".dehex(), Packer(Sink(ByteArray(5))).pack(true).build())
+        assertArrayEquals("c2".dehex(), Packer(SinkInMemory(ByteArray(5))).pack(false).build())
+        assertArrayEquals("c3".dehex(), Packer(SinkInMemory(ByteArray(5))).pack(true).build())
     }
 
 

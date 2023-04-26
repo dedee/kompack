@@ -9,11 +9,13 @@ import kotlinx.serialization.modules.EmptySerializersModule
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.serializer
 import org.dedee.kompack.mpack.pack.Packer
-import org.dedee.kompack.mpack.pack.Sink
+import org.dedee.kompack.mpack.pack.SinkInMemory
+import org.dedee.kompack.mpack.pack.SinkStream
+import java.io.OutputStream
 
 @OptIn(ExperimentalSerializationApi::class)
 class MessagePackEncoder(
-    val packer: Packer = Packer(Sink(ByteArray(1_000)))
+    val packer: Packer = Packer(SinkInMemory(ByteArray(1_000)))
 ) : AbstractEncoder() {
 
     override val serializersModule: SerializersModule = EmptySerializersModule()
@@ -21,6 +23,7 @@ class MessagePackEncoder(
     override fun encodeNull() {
         packer.packNil()
     }
+
     override fun encodeNotNullMark() {
         // msg pack includes null handling nothing to do
     }
@@ -75,13 +78,30 @@ class MessagePackEncoder(
     }
 
     companion object {
-        fun <T> encodeToByteArray(serializer: SerializationStrategy<T>, value: T, messagePackEncoder: MessagePackEncoder = MessagePackEncoder()): ByteArray {
+        fun <T> encodeToByteArray(
+            serializer: SerializationStrategy<T>,
+            value: T,
+            messagePackEncoder: MessagePackEncoder = MessagePackEncoder()
+        ): ByteArray {
             messagePackEncoder.encodeSerializableValue(serializer, value)
             return messagePackEncoder.build()
         }
 
         inline fun <reified T> encodeToByteArray(value: T) = encodeToByteArray(serializer(), value)
 
-        inline fun <reified T> encodeToByteArray(value: T, packer: Packer) = encodeToByteArray(serializer(), value, MessagePackEncoder(packer))
+        inline fun <reified T> encodeToByteArray(value: T, packer: Packer) =
+            encodeToByteArray(serializer(), value, MessagePackEncoder(packer))
+
+
+        fun <T> encodeToStream(
+            serializer: SerializationStrategy<T>,
+            value: T,
+            messagePackEncoder: MessagePackEncoder,
+        ) {
+            messagePackEncoder.encodeSerializableValue(serializer, value)
+        }
+
+        inline fun <reified T> encodeToStream(value: T, stream: OutputStream) =
+            encodeToStream(serializer(), value, MessagePackEncoder(Packer(SinkStream(stream))))
     }
 }

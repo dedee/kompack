@@ -1,7 +1,7 @@
 package org.dedee.kompack.mpack.testsuite
 
 import org.dedee.kompack.mpack.pack.Packer
-import org.dedee.kompack.mpack.pack.Sink
+import org.dedee.kompack.mpack.pack.SinkInMemory
 import org.dedee.kompack.mpack.unpack.Source
 import org.dedee.kompack.mpack.unpack.Unpacker
 import org.dedee.kompack.mpack.util.dehex
@@ -14,7 +14,7 @@ class Binaries {
 
         assertNull(Unpacker(Source("c0".dehex())).unpackBinary())
         assertThrows(Exception::class.java) { Unpacker(Source("01".dehex())).unpackBinary() }
-        assertArrayEquals("c400".dehex(), Packer(Sink(ByteArray(5))).pack(ByteArray(0)).build())
+        assertArrayEquals("c400".dehex(), Packer(SinkInMemory(ByteArray(5))).pack(ByteArray(0)).build())
 
 
         //  "12.binary.yaml": [

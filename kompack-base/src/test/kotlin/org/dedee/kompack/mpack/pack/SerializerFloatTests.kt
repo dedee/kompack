@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 
 class SerializerFloatTests {
     private val dest = ByteArray(10)
-    private val packer = Packer(Sink(dest))
+    private val packer = Packer(SinkInMemory(dest))
 
     // float 32 stores a floating point number in IEEE 754 single precision floating point number format:
     //+--------+--------+--------+--------+--------+

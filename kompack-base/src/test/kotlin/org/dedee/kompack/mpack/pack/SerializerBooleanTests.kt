@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 class SerializerBooleanTests {
 
     private val dest = ByteArray(10)
-    private val packer = Packer(Sink(dest))
+    private val packer = Packer(SinkInMemory(dest))
 
     @Test
     fun `Boolean NIL`() {

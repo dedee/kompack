@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test
 
 class PackerTest {
     private val dest = ByteArray(10)
-    private val s = Sink(dest)
+    private val s = SinkInMemory(dest)
 
     @Test
     fun pack() {

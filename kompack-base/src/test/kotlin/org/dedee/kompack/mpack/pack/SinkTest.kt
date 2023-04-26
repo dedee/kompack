@@ -8,7 +8,7 @@ import org.junit.jupiter.api.assertThrows
 class SinkTest {
 
     private val dest = ByteArray(10)
-    private val s = Sink(dest)
+    private val s = SinkInMemory(dest)
 
     @Test
     fun `Nothing added Empty`() {
