@@ -1,9 +1,8 @@
 package org.dedee.kompack.mpack.testsuite
 
-import org.dedee.kompack.mpack.pack.Packer
-import org.dedee.kompack.mpack.pack.SinkInMemory
-import org.dedee.kompack.mpack.unpack.Source
-import org.dedee.kompack.mpack.unpack.Unpacker
+import org.dedee.kompack.mpack.pack.InMemoryPacker
+import org.dedee.kompack.mpack.pack.build
+import org.dedee.kompack.mpack.unpack.InMemoryUnpacker
 import org.dedee.kompack.mpack.util.dehex
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -20,7 +19,7 @@ class Booleans {
         //      ]
         //    },
 
-        assertFalse(Unpacker(Source("c2".dehex())).unpackBoolean()!!)
+        assertFalse(InMemoryUnpacker("c2".dehex()).unpackBoolean()!!)
 
         //    {
         //      "bool": true,
@@ -30,15 +29,15 @@ class Booleans {
         //    }
         //  ],
 
-        assertTrue(Unpacker(Source("c3".dehex())).unpackBoolean()!!)
+        assertTrue(InMemoryUnpacker("c3".dehex()).unpackBoolean()!!)
     }
 
     @Test
     fun otherStuff() {
-        assertNull(Unpacker(Source("c0".dehex())).unpackBoolean())
-        assertThrows(Exception::class.java) { Unpacker(Source("01".dehex())).unpackBoolean() }
-        assertArrayEquals("c2".dehex(), Packer(SinkInMemory(ByteArray(5))).pack(false).build())
-        assertArrayEquals("c3".dehex(), Packer(SinkInMemory(ByteArray(5))).pack(true).build())
+        assertNull(InMemoryUnpacker("c0".dehex()).unpackBoolean())
+        assertThrows(Exception::class.java) { InMemoryUnpacker("01".dehex()).unpackBoolean() }
+        assertArrayEquals("c2".dehex(), InMemoryPacker().pack(false).build())
+        assertArrayEquals("c3".dehex(), InMemoryPacker().pack(true).build())
     }
 
 

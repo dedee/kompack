@@ -1,7 +1,6 @@
 package org.dedee.kompack.mpack.testsuite
 
-import org.dedee.kompack.mpack.unpack.Source
-import org.dedee.kompack.mpack.unpack.Unpacker
+import org.dedee.kompack.mpack.unpack.InMemoryUnpacker
 import org.dedee.kompack.mpack.util.dehex
 import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -21,7 +20,7 @@ class Arrays {
         //      ]
         //    },
 
-        assertEquals(0, Unpacker(Source("90".dehex())).unpackArray()!!.size)
+        assertEquals(0, InMemoryUnpacker("90".dehex()).unpackArray()!!.size)
 
         //    {
         //      "array": [ 1 ],
@@ -32,9 +31,9 @@ class Arrays {
         //      ]
         //    },
 
-        assertArrayEquals(arrayOf(1), Unpacker(Source("91-01".dehex())).unpackArray())
-        assertArrayEquals(arrayOf(1), Unpacker(Source("dc-00-01-01".dehex())).unpackArray())
-        assertArrayEquals(arrayOf(1), Unpacker(Source("dd-00-00-00-01-01".dehex())).unpackArray())
+        assertArrayEquals(arrayOf(1), InMemoryUnpacker("91-01".dehex()).unpackArray())
+        assertArrayEquals(arrayOf(1), InMemoryUnpacker("dc-00-01-01".dehex()).unpackArray())
+        assertArrayEquals(arrayOf(1), InMemoryUnpacker("dd-00-00-00-01-01".dehex()).unpackArray())
 
 
         //    {
@@ -48,15 +47,15 @@ class Arrays {
 
         assertArrayEquals(
             arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15),
-            Unpacker(Source("9f-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-0f".dehex())).unpackArray()
+            InMemoryUnpacker("9f-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-0f".dehex()).unpackArray()
         )
         assertArrayEquals(
             arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15),
-            Unpacker(Source("dc-00-0f-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-0f".dehex())).unpackArray()
+            InMemoryUnpacker("dc-00-0f-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-0f".dehex()).unpackArray()
         )
         assertArrayEquals(
             arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15),
-            Unpacker(Source("dd-00-00-00-0f-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-0f".dehex())).unpackArray()
+            InMemoryUnpacker("dd-00-00-00-0f-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-0f".dehex()).unpackArray()
         )
 
         //    {
@@ -69,11 +68,11 @@ class Arrays {
 
         assertArrayEquals(
             arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16),
-            Unpacker(Source("dc-00-10-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-0f-10".dehex())).unpackArray()
+            InMemoryUnpacker("dc-00-10-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-0f-10".dehex()).unpackArray()
         )
         assertArrayEquals(
             arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16),
-            Unpacker(Source("dd-00-00-00-10-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-0f-10".dehex())).unpackArray()
+            InMemoryUnpacker("dd-00-00-00-10-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-0f-10".dehex()).unpackArray()
         )
 
         //    {
@@ -88,9 +87,9 @@ class Arrays {
         //    }
         //  ],
 
-        assertArrayEquals(arrayOf("a"), Unpacker(Source("91-a1-61".dehex())).unpackArray())
-        assertArrayEquals(arrayOf("a"), Unpacker(Source("dc-00-01-a1-61".dehex())).unpackArray())
-        assertArrayEquals(arrayOf("a"), Unpacker(Source("dd-00-00-00-01-a1-61".dehex())).unpackArray())
+        assertArrayEquals(arrayOf("a"), InMemoryUnpacker("91-a1-61".dehex()).unpackArray())
+        assertArrayEquals(arrayOf("a"), InMemoryUnpacker("dc-00-01-a1-61".dehex()).unpackArray())
+        assertArrayEquals(arrayOf("a"), InMemoryUnpacker("dd-00-00-00-01-a1-61".dehex()).unpackArray())
 
     }
 

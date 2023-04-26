@@ -1,9 +1,15 @@
 package org.dedee.kompack.mpack.unpack
 
+import org.dedee.kompack.mpack.util.BufferSourceMemory
 import kotlin.reflect.KClass
 
+class InMemoryUnpacker : Unpacker {
+    constructor(size: Int = 1024) : super(Source(BufferSourceMemory(ByteArray(size))))
 
-class Unpacker(val source: Source) {
+    constructor(data: ByteArray) : super(Source(BufferSourceMemory(data)))
+}
+
+open class Unpacker(val source: Source) {
 
     private val intTypeUnpacker = IntTypeUnpacker()
     private val longTypeUnpacker = LongTypeUnpacker()

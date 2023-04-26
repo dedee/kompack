@@ -73,10 +73,6 @@ class MessagePackEncoder(
         return this
     }
 
-    private fun build(): ByteArray {
-        return packer.build()
-    }
-
     companion object {
         fun <T> encodeToByteArray(
             serializer: SerializationStrategy<T>,
@@ -84,7 +80,7 @@ class MessagePackEncoder(
             messagePackEncoder: MessagePackEncoder = MessagePackEncoder()
         ): ByteArray {
             messagePackEncoder.encodeSerializableValue(serializer, value)
-            return messagePackEncoder.build()
+            return (messagePackEncoder.packer.sink as SinkInMemory).build()
         }
 
         inline fun <reified T> encodeToByteArray(value: T) = encodeToByteArray(serializer(), value)

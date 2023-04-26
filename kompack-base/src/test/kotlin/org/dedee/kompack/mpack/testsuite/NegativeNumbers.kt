@@ -1,7 +1,6 @@
 package org.dedee.kompack.mpack.testsuite
 
-import org.dedee.kompack.mpack.unpack.Source
-import org.dedee.kompack.mpack.unpack.Unpacker
+import org.dedee.kompack.mpack.unpack.InMemoryUnpacker
 import org.dedee.kompack.mpack.util.dehex
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -24,13 +23,13 @@ class NegativeNumbers {
         //      ]
         //    },
 
-        Assertions.assertEquals(-1, Unpacker(Source("ff".dehex())).unpackInt())
-        Assertions.assertEquals(-1, Unpacker(Source("d0-ff".dehex())).unpackInt())
-        Assertions.assertEquals(-1, Unpacker(Source("d1-ff-ff".dehex())).unpackInt())
-        Assertions.assertEquals(-1, Unpacker(Source("d2-ff-ff-ff-ff".dehex())).unpackInt())
-        Assertions.assertEquals(-1, Unpacker(Source("d3-ff-ff-ff-ff-ff-ff-ff-ff".dehex())).unpackLong())
-        Assertions.assertEquals(-1.0, Unpacker(Source("ca-bf-80-00-00".dehex())).unpackFloat()!!.toDouble(), 0.01)
-        Assertions.assertEquals(-1.0, Unpacker(Source("cb-bf-f0-00-00-00-00-00-00".dehex())).unpackDouble()!!, 0.01)
+        Assertions.assertEquals(-1, InMemoryUnpacker("ff".dehex()).unpackInt())
+        Assertions.assertEquals(-1, InMemoryUnpacker("d0-ff".dehex()).unpackInt())
+        Assertions.assertEquals(-1, InMemoryUnpacker("d1-ff-ff".dehex()).unpackInt())
+        Assertions.assertEquals(-1, InMemoryUnpacker("d2-ff-ff-ff-ff".dehex()).unpackInt())
+        Assertions.assertEquals(-1, InMemoryUnpacker("d3-ff-ff-ff-ff-ff-ff-ff-ff".dehex()).unpackLong())
+        Assertions.assertEquals(-1.0, InMemoryUnpacker("ca-bf-80-00-00".dehex()).unpackFloat()!!.toDouble(), 0.01)
+        Assertions.assertEquals(-1.0, InMemoryUnpacker("cb-bf-f0-00-00-00-00-00-00".dehex()).unpackDouble()!!, 0.01)
 
         //    {
         //      "number": -32,
@@ -45,13 +44,13 @@ class NegativeNumbers {
         //      ]
         //    },
 
-        Assertions.assertEquals(-32, Unpacker(Source("e0".dehex())).unpackInt())
-        Assertions.assertEquals(-32, Unpacker(Source("d0-e0".dehex())).unpackInt())
-        Assertions.assertEquals(-32, Unpacker(Source("d1-ff-e0".dehex())).unpackInt())
-        Assertions.assertEquals(-32, Unpacker(Source("d2-ff-ff-ff-e0".dehex())).unpackInt())
-        Assertions.assertEquals(-32, Unpacker(Source("d3-ff-ff-ff-ff-ff-ff-ff-e0".dehex())).unpackLong())
-        Assertions.assertEquals(-32.0, Unpacker(Source("ca-c2-00-00-00".dehex())).unpackFloat()!!.toDouble(), 0.01)
-        Assertions.assertEquals(-32.0, Unpacker(Source("cb-c0-40-00-00-00-00-00-00".dehex())).unpackDouble()!!, 0.01)
+        Assertions.assertEquals(-32, InMemoryUnpacker("e0".dehex()).unpackInt())
+        Assertions.assertEquals(-32, InMemoryUnpacker("d0-e0".dehex()).unpackInt())
+        Assertions.assertEquals(-32, InMemoryUnpacker("d1-ff-e0".dehex()).unpackInt())
+        Assertions.assertEquals(-32, InMemoryUnpacker("d2-ff-ff-ff-e0".dehex()).unpackInt())
+        Assertions.assertEquals(-32, InMemoryUnpacker("d3-ff-ff-ff-ff-ff-ff-ff-e0".dehex()).unpackLong())
+        Assertions.assertEquals(-32.0, InMemoryUnpacker("ca-c2-00-00-00".dehex()).unpackFloat()!!.toDouble(), 0.01)
+        Assertions.assertEquals(-32.0, InMemoryUnpacker("cb-c0-40-00-00-00-00-00-00".dehex()).unpackDouble()!!, 0.01)
 
         //    {
         //      "number": -33,
@@ -63,10 +62,10 @@ class NegativeNumbers {
         //      ]
         //    },
 
-        Assertions.assertEquals(-33, Unpacker(Source("d0-df".dehex())).unpackInt())
-        Assertions.assertEquals(-33, Unpacker(Source("d1-ff-df".dehex())).unpackInt())
-        Assertions.assertEquals(-33, Unpacker(Source("d2-ff-ff-ff-df".dehex())).unpackInt())
-        Assertions.assertEquals(-33, Unpacker(Source("d3-ff-ff-ff-ff-ff-ff-ff-df".dehex())).unpackLong())
+        Assertions.assertEquals(-33, InMemoryUnpacker("d0-df".dehex()).unpackInt())
+        Assertions.assertEquals(-33, InMemoryUnpacker("d1-ff-df".dehex()).unpackInt())
+        Assertions.assertEquals(-33, InMemoryUnpacker("d2-ff-ff-ff-df".dehex()).unpackInt())
+        Assertions.assertEquals(-33, InMemoryUnpacker("d3-ff-ff-ff-ff-ff-ff-ff-df".dehex()).unpackLong())
 
         //    {
         //      "number": -128,
@@ -78,10 +77,10 @@ class NegativeNumbers {
         //      ]
         //    },
 
-        Assertions.assertEquals(-128, Unpacker(Source("d0-80".dehex())).unpackInt())
-        Assertions.assertEquals(-128, Unpacker(Source("d1-ff-80".dehex())).unpackInt())
-        Assertions.assertEquals(-128, Unpacker(Source("d2-ff-ff-ff-80".dehex())).unpackInt())
-        Assertions.assertEquals(-128, Unpacker(Source("d3-ff-ff-ff-ff-ff-ff-ff-80".dehex())).unpackLong())
+        Assertions.assertEquals(-128, InMemoryUnpacker("d0-80".dehex()).unpackInt())
+        Assertions.assertEquals(-128, InMemoryUnpacker("d1-ff-80".dehex()).unpackInt())
+        Assertions.assertEquals(-128, InMemoryUnpacker("d2-ff-ff-ff-80".dehex()).unpackInt())
+        Assertions.assertEquals(-128, InMemoryUnpacker("d3-ff-ff-ff-ff-ff-ff-ff-80".dehex()).unpackLong())
 
 
         //    {
@@ -93,9 +92,9 @@ class NegativeNumbers {
         //      ]
         //    },
 
-        Assertions.assertEquals(-256, Unpacker(Source("d1-ff-00".dehex())).unpackInt())
-        Assertions.assertEquals(-256, Unpacker(Source("d2-ff-ff-ff-00".dehex())).unpackInt())
-        Assertions.assertEquals(-256, Unpacker(Source("d3-ff-ff-ff-ff-ff-ff-ff-00".dehex())).unpackLong())
+        Assertions.assertEquals(-256, InMemoryUnpacker("d1-ff-00".dehex()).unpackInt())
+        Assertions.assertEquals(-256, InMemoryUnpacker("d2-ff-ff-ff-00".dehex()).unpackInt())
+        Assertions.assertEquals(-256, InMemoryUnpacker("d3-ff-ff-ff-ff-ff-ff-ff-00".dehex()).unpackLong())
 
         //    {
         //      "number": -32768,
@@ -106,9 +105,9 @@ class NegativeNumbers {
         //      ]
         //    },
 
-        Assertions.assertEquals(-32768, Unpacker(Source("d1-80-00".dehex())).unpackInt())
-        Assertions.assertEquals(-32768, Unpacker(Source("d2-ff-ff-80-00".dehex())).unpackInt())
-        Assertions.assertEquals(-32768, Unpacker(Source("d3-ff-ff-ff-ff-ff-ff-80-00".dehex())).unpackLong())
+        Assertions.assertEquals(-32768, InMemoryUnpacker("d1-80-00".dehex()).unpackInt())
+        Assertions.assertEquals(-32768, InMemoryUnpacker("d2-ff-ff-80-00".dehex()).unpackInt())
+        Assertions.assertEquals(-32768, InMemoryUnpacker("d3-ff-ff-ff-ff-ff-ff-80-00".dehex()).unpackLong())
 
         //    {
         //      "number": -65536,
@@ -118,8 +117,8 @@ class NegativeNumbers {
         //      ]
         //    },
 
-        Assertions.assertEquals(-65536, Unpacker(Source("d2-ff-ff-00-00".dehex())).unpackInt())
-        Assertions.assertEquals(-65536, Unpacker(Source("d3-ff-ff-ff-ff-ff-ff-00-00".dehex())).unpackLong())
+        Assertions.assertEquals(-65536, InMemoryUnpacker("d2-ff-ff-00-00".dehex()).unpackInt())
+        Assertions.assertEquals(-65536, InMemoryUnpacker("d3-ff-ff-ff-ff-ff-ff-00-00".dehex()).unpackLong())
 
         //    {
         //      "number": -2147483648,
@@ -131,11 +130,11 @@ class NegativeNumbers {
         //    }
         //  ],
 
-        Assertions.assertEquals(-2147483648, Unpacker(Source("d2-80-00-00-00".dehex())).unpackInt())
-        Assertions.assertEquals(-2147483648, Unpacker(Source("d3-ff-ff-ff-ff-80-00-00-00".dehex())).unpackLong())
+        Assertions.assertEquals(-2147483648, InMemoryUnpacker("d2-80-00-00-00".dehex()).unpackInt())
+        Assertions.assertEquals(-2147483648, InMemoryUnpacker("d3-ff-ff-ff-ff-80-00-00-00".dehex()).unpackLong())
         Assertions.assertEquals(
             -2147483648.0,
-            Unpacker(Source("cb-c1-e0-00-00-00-00-00-00".dehex())).unpackDouble()!!,
+            InMemoryUnpacker("cb-c1-e0-00-00-00-00-00-00".dehex()).unpackDouble()!!,
             0.01
         )
 

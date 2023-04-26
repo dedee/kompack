@@ -1,9 +1,8 @@
 package org.dedee.kompack.mpack.testsuite
 
-import org.dedee.kompack.mpack.pack.Packer
-import org.dedee.kompack.mpack.pack.SinkInMemory
-import org.dedee.kompack.mpack.unpack.Source
-import org.dedee.kompack.mpack.unpack.Unpacker
+import org.dedee.kompack.mpack.pack.InMemoryPacker
+import org.dedee.kompack.mpack.pack.build
+import org.dedee.kompack.mpack.unpack.InMemoryUnpacker
 import org.dedee.kompack.mpack.util.dehex
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -20,9 +19,9 @@ class Nil {
         //      ]
         //    }
         //  ],
-        Assertions.assertNull(Unpacker(Source("c0".dehex())).unpackInt())
-        Assertions.assertNull(Unpacker(Source("c0".dehex())).unpackLong())
+        Assertions.assertNull(InMemoryUnpacker("c0".dehex()).unpackInt())
+        Assertions.assertNull(InMemoryUnpacker("c0".dehex()).unpackLong())
 
-        Assertions.assertArrayEquals("c0".dehex(), Packer(SinkInMemory(ByteArray(5))).packNil().build())
+        Assertions.assertArrayEquals("c0".dehex(), InMemoryPacker().packNil().build())
     }
 }

@@ -1,7 +1,6 @@
 package org.dedee.kompack.mpack.testsuite
 
-import org.dedee.kompack.mpack.unpack.Source
-import org.dedee.kompack.mpack.unpack.Unpacker
+import org.dedee.kompack.mpack.unpack.InMemoryUnpacker
 import org.dedee.kompack.mpack.util.dehex
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -22,11 +21,11 @@ class Nested {
         //      ]
         //    },
 
-        assertEquals(0, ((Unpacker(Source("91-90".dehex())).unpack() as Array<*>)[0] as Array<*>).size)
-        assertEquals(0, ((Unpacker(Source("dc-00-01-dc-00-00".dehex())).unpack() as Array<*>)[0] as Array<*>).size)
+        assertEquals(0, ((InMemoryUnpacker("91-90".dehex()).unpack() as Array<*>)[0] as Array<*>).size)
+        assertEquals(0, ((InMemoryUnpacker("dc-00-01-dc-00-00".dehex()).unpack() as Array<*>)[0] as Array<*>).size)
         assertEquals(
             0,
-            ((Unpacker(Source("dd-00-00-00-01-dd-00-00-00-00".dehex())).unpack() as Array<*>)[0] as Array<*>).size
+            ((InMemoryUnpacker("dd-00-00-00-01-dd-00-00-00-00".dehex()).unpack() as Array<*>)[0] as Array<*>).size
         )
 
         //    {
@@ -40,9 +39,9 @@ class Nested {
         //      ]
         //    },
 
-        assertEquals(0, ((Unpacker(Source("91-80".dehex())).unpack() as Array<*>)[0] as Map<*, *>).size)
-        assertEquals(0, ((Unpacker(Source("dc-00-01-80".dehex())).unpack() as Array<*>)[0] as Map<*, *>).size)
-        assertEquals(0, ((Unpacker(Source("dd-00-00-00-01-80".dehex())).unpack() as Array<*>)[0] as Map<*, *>).size)
+        assertEquals(0, ((InMemoryUnpacker("91-80".dehex()).unpack() as Array<*>)[0] as Map<*, *>).size)
+        assertEquals(0, ((InMemoryUnpacker("dc-00-01-80".dehex()).unpack() as Array<*>)[0] as Map<*, *>).size)
+        assertEquals(0, ((InMemoryUnpacker("dd-00-00-00-01-80".dehex()).unpack() as Array<*>)[0] as Map<*, *>).size)
 
         //    {
         //      "map": {
@@ -55,9 +54,15 @@ class Nested {
         //      ]
         //    },
 
-        assertEquals(0, ((Unpacker(Source("81-a1-61-80".dehex())).unpack() as Map<*, *>)["a"] as Map<*, *>).size)
-        assertEquals(0, ((Unpacker(Source("de-00-01-a1-61-de-00-00".dehex())).unpack() as Map<*, *>)["a"] as Map<*, *>).size)
-        assertEquals(0, ((Unpacker(Source("df-00-00-00-01-a1-61-df-00-00-00-00".dehex())).unpack() as Map<*, *>)["a"] as Map<*, *>).size)
+        assertEquals(0, ((InMemoryUnpacker("81-a1-61-80".dehex()).unpack() as Map<*, *>)["a"] as Map<*, *>).size)
+        assertEquals(
+            0,
+            ((InMemoryUnpacker("de-00-01-a1-61-de-00-00".dehex()).unpack() as Map<*, *>)["a"] as Map<*, *>).size
+        )
+        assertEquals(
+            0,
+            ((InMemoryUnpacker("df-00-00-00-01-a1-61-df-00-00-00-00".dehex()).unpack() as Map<*, *>)["a"] as Map<*, *>).size
+        )
 
         //    {
         //      "map": {
@@ -71,9 +76,12 @@ class Nested {
         //    }
         //  ],
 
-        assertEquals(0, ((Unpacker(Source("81-a1-61-90".dehex())).unpack() as Map<*, *>)["a"] as Array<*>).size)
-        assertEquals(0, ((Unpacker(Source("de-00-01-a1-61-90".dehex())).unpack() as Map<*, *>)["a"] as Array<*>).size)
-        assertEquals(0, ((Unpacker(Source("df-00-00-00-01-a1-61-90".dehex())).unpack() as Map<*, *>)["a"] as Array<*>).size)
+        assertEquals(0, ((InMemoryUnpacker("81-a1-61-90".dehex()).unpack() as Map<*, *>)["a"] as Array<*>).size)
+        assertEquals(0, ((InMemoryUnpacker("de-00-01-a1-61-90".dehex()).unpack() as Map<*, *>)["a"] as Array<*>).size)
+        assertEquals(
+            0,
+            ((InMemoryUnpacker("df-00-00-00-01-a1-61-90".dehex()).unpack() as Map<*, *>)["a"] as Array<*>).size
+        )
 
     }
 

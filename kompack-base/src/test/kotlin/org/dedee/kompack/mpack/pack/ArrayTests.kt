@@ -1,7 +1,6 @@
 package org.dedee.kompack.mpack.pack
 
-import org.dedee.kompack.mpack.unpack.Source
-import org.dedee.kompack.mpack.unpack.Unpacker
+import org.dedee.kompack.mpack.unpack.InMemoryUnpacker
 import org.dedee.kompack.mpack.util.hex
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -10,7 +9,7 @@ class ArrayTests {
 
     @Test
     fun `empty list`() {
-        assertEquals("90", Packer(SinkInMemory(ByteArray(10))).pack(emptyArray()).build().hex())
+        assertEquals("90", InMemoryPacker(10).pack(emptyArray()).build().hex())
     }
 
     @Test
@@ -20,23 +19,23 @@ class ArrayTests {
         // |1001XXXX|    N objects    |
         // +--------+~~~~~~~~~~~~~~~~~+
         val l = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
-        assertEquals("9f0102030405060708090a0b0c0d0e0f", Packer(SinkInMemory(ByteArray(50))).pack(l).build().hex())
+        assertEquals("9f0102030405060708090a0b0c0d0e0f", InMemoryPacker(50).pack(l).build().hex())
     }
 
     @Test
     fun simpleArray() {
         val a = arrayOf(1, 2, 3, 4)
-        val encoded = Packer(SinkInMemory(ByteArray(100))).pack(a).build()
-        val unpackedArray = Unpacker(Source(encoded)).unpackArray()
+        val encoded = InMemoryPacker(50).pack(a).build()
+        val unpackedArray = InMemoryUnpacker(encoded).unpackArray()
         assertEquals(4, unpackedArray!!.size)
     }
 
     @Test
     fun arrayInArray() {
         val a = arrayOf(arrayOf(1, 2, 3), arrayOf(3, 4, 5, 6))
-        val encoded = Packer(SinkInMemory(ByteArray(100))).pack(a).build()
+        val encoded = InMemoryPacker(50).pack(a).build()
         println(encoded.hex())
-        val unpackedArray = Unpacker(Source(encoded)).unpackArray()
+        val unpackedArray = InMemoryUnpacker(encoded).unpackArray()
         assertEquals(2, unpackedArray!!.size)
         assertEquals(3, (unpackedArray[0] as Array<*>).size)
         assertEquals(4, (unpackedArray[1] as Array<*>).size)
@@ -50,8 +49,8 @@ class ArrayTests {
         //|  0xdc  |YYYYYYYY|YYYYYYYY|    N objects    |
         //+--------+--------+--------+~~~~~~~~~~~~~~~~~+
         val l = Array(1024) { 0 }
-        val c = Packer(SinkInMemory(ByteArray(1200))).pack(l).build()
-        val l2: Array<*> = Unpacker(Source(c)).unpack() as Array<*>
+        val c = InMemoryPacker(1100).pack(l).build()
+        val l2: Array<*> = InMemoryUnpacker(c).unpack() as Array<*>
         assertEquals(1024, l2.size)
     }
 

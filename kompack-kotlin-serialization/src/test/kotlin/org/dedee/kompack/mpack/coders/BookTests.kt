@@ -1,8 +1,7 @@
 package org.dedee.kompack.mpack.coders
 
 import kotlinx.serialization.Serializable
-import org.dedee.kompack.mpack.pack.Packer
-import org.dedee.kompack.mpack.pack.SinkInMemory
+import org.dedee.kompack.mpack.pack.InMemoryPacker
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.io.ByteArrayOutputStream
@@ -27,7 +26,7 @@ class BookTests {
     fun `Book sample in memory sink`() {
         val book = BookUtil.createBook()
         val nanos = measureTimeMillis {
-            val b = MessagePackEncoder.encodeToByteArray(book, Packer(SinkInMemory(ByteArray(1_000_000))))
+            val b = MessagePackEncoder.encodeToByteArray(book, InMemoryPacker(1_000_000))
             val book2 = MessagePackDecoder.decodeFromByteArray<Book>(b)
             assertEquals(book, book2)
         }

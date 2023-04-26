@@ -1,64 +1,51 @@
 package org.dedee.kompack.mpack.unpack
 
-class Source(private val b: ByteArray) {
-    var pos = 0
+import org.dedee.kompack.mpack.util.BufferSource
 
+class Source(private val src: BufferSource) {
     fun pullByte(): Int {
-        return b[pos++].toInt() and 0xff
+        return src.pullUByte()
     }
 
     fun pullInt16(): Int {
-        var ret = 0
-        ret = ret or (b[pos++].toInt() shl 8)
-        ret = ret or (b[pos++].toInt() and 0xff)
-        return ret
+        return (src.pullSByte() shl 8) or (src.pullUByte())
     }
-
-
+   
     fun pullInt32(): Int {
-        var ret = 0
-        ret = ret or (b[pos++].toInt() shl 24)
-        ret = ret or (b[pos++].toInt() and 0xff shl 16)
-        ret = ret or (b[pos++].toInt() and 0xff shl 8)
-        ret = ret or (b[pos++].toInt() and 0xff)
-        return ret
+        return (src.pullSByte() shl 24) or (src.pullUByte() shl 16) or (src.pullUByte() shl 8) or (src.pullUByte())
     }
-
 
     fun pullInt64(): Long {
-        var ret: Long = 0
-        ret = ret or (b[pos++].toLong() shl 56)
-        ret = ret or (b[pos++].toLong() and 0xffL shl 48)
-        ret = ret or (b[pos++].toLong() and 0xffL shl 40)
-        ret = ret or (b[pos++].toLong() and 0xffL shl 32)
-        ret = ret or (b[pos++].toLong() and 0xffL shl 24)
-        ret = ret or (b[pos++].toLong() and 0xffL shl 16)
-        ret = ret or (b[pos++].toLong() and 0xffL shl 8)
-        ret = ret or (b[pos++].toLong() and 0xffL)
-        return ret
+        return (src.pullSByte().toLong() shl 56) or
+                (src.pullUByte().toLong() shl 48) or
+                (src.pullUByte().toLong() shl 40) or
+                (src.pullUByte().toLong() shl 32) or
+                (src.pullUByte().toLong() shl 24) or
+                (src.pullUByte().toLong() shl 16) or
+                (src.pullUByte().toLong() shl 8) or
+                (src.pullUByte().toLong())
     }
 
     fun pullUInt64(): ULong {
-        var ret = 0uL
-        ret = ret or (b[pos++].toULong() and 0xffuL shl 56)
-        ret = ret or (b[pos++].toULong() and 0xffuL shl 48)
-        ret = ret or (b[pos++].toULong() and 0xffuL shl 40)
-        ret = ret or (b[pos++].toULong() and 0xffuL shl 32)
-        ret = ret or (b[pos++].toULong() and 0xffuL shl 24)
-        ret = ret or (b[pos++].toULong() and 0xffuL shl 16)
-        ret = ret or (b[pos++].toULong() and 0xffuL shl 8)
-        ret = ret or (b[pos++].toULong() and 0xffuL)
-        return ret
+        return (src.pullUByte().toULong() shl 56) or
+                (src.pullUByte().toULong() shl 48) or
+                (src.pullUByte().toULong() shl 40) or
+                (src.pullUByte().toULong() shl 32) or
+                (src.pullUByte().toULong() shl 24) or
+                (src.pullUByte().toULong() shl 16) or
+                (src.pullUByte().toULong() shl 8) or
+                (src.pullUByte().toULong())
     }
 
     fun back() {
-        pos--
+        src.pushBack()
     }
 
     fun pullBytes(len: Int): ByteArray {
-        val ret = ByteArray(len)
-        b.copyInto(ret, 0, pos, pos + len)
-        pos += len
-        return ret
+        val d = ByteArray(len)
+        for (i in 0 until len) {
+            d[i] = src.pullUByte().toByte()
+        }
+        return d
     }
 }

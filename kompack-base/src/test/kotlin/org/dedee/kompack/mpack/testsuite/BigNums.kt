@@ -1,7 +1,6 @@
 package org.dedee.kompack.mpack.testsuite
 
-import org.dedee.kompack.mpack.unpack.Source
-import org.dedee.kompack.mpack.unpack.Unpacker
+import org.dedee.kompack.mpack.unpack.InMemoryUnpacker
 import org.dedee.kompack.mpack.util.dehex
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -22,16 +21,16 @@ class BigNums {
         //      ]
         //    },
 
-        Assertions.assertEquals(4294967296uL, Unpacker(Source("cf-00-00-00-01-00-00-00-00".dehex())).unpackULong())
-        Assertions.assertEquals(4294967296, Unpacker(Source("d3-00-00-00-01-00-00-00-00".dehex())).unpackLong())
+        Assertions.assertEquals(4294967296uL, InMemoryUnpacker("cf-00-00-00-01-00-00-00-00".dehex()).unpackULong())
+        Assertions.assertEquals(4294967296, InMemoryUnpacker("d3-00-00-00-01-00-00-00-00".dehex()).unpackLong())
         Assertions.assertEquals(
             4294967296.0,
-            Unpacker(Source("ca-4f-80-00-00".dehex())).unpackFloat()!!.toDouble(),
+            InMemoryUnpacker("ca-4f-80-00-00".dehex()).unpackFloat()!!.toDouble(),
             0.01
         )
         Assertions.assertEquals(
             4294967296.0,
-            Unpacker(Source("cb-41-f0-00-00-00-00-00-00".dehex())).unpackDouble()!!,
+            InMemoryUnpacker("cb-41-f0-00-00-00-00-00-00".dehex()).unpackDouble()!!,
             0.01
         )
 
@@ -44,10 +43,10 @@ class BigNums {
         //      ]
         //    },
 
-        Assertions.assertEquals(-4294967296, Unpacker(Source("d3-ff-ff-ff-ff-00-00-00-00".dehex())).unpackLong())
+        Assertions.assertEquals(-4294967296, InMemoryUnpacker("d3-ff-ff-ff-ff-00-00-00-00".dehex()).unpackLong())
         Assertions.assertEquals(
             -4294967296.0,
-            Unpacker(Source("cb-c1-f0-00-00-00-00-00-00".dehex())).unpackDouble()!!,
+            InMemoryUnpacker("cb-c1-f0-00-00-00-00-00-00".dehex()).unpackDouble()!!,
             0.01
         )
 
@@ -62,16 +61,16 @@ class BigNums {
         //      ]
         //    },
 
-        Assertions.assertEquals(281474976710656uL, Unpacker(Source("cf-00-01-00-00-00-00-00-00".dehex())).unpackULong())
-        Assertions.assertEquals(281474976710656, Unpacker(Source("d3-00-01-00-00-00-00-00-00".dehex())).unpackLong())
+        Assertions.assertEquals(281474976710656uL, InMemoryUnpacker("cf-00-01-00-00-00-00-00-00".dehex()).unpackULong())
+        Assertions.assertEquals(281474976710656, InMemoryUnpacker("d3-00-01-00-00-00-00-00-00".dehex()).unpackLong())
         Assertions.assertEquals(
             281474976710656.0,
-            Unpacker(Source("ca-57-80-00-00".dehex())).unpackFloat()!!.toDouble(),
+            InMemoryUnpacker("ca-57-80-00-00".dehex()).unpackFloat()!!.toDouble(),
             0.01
         )
         Assertions.assertEquals(
             281474976710656.0,
-            Unpacker(Source("cb-42-f0-00-00-00-00-00-00".dehex())).unpackDouble()!!,
+            InMemoryUnpacker("cb-42-f0-00-00-00-00-00-00".dehex()).unpackDouble()!!,
             0.01
         )
 
@@ -85,15 +84,15 @@ class BigNums {
         //      ]
         //    },
 
-        Assertions.assertEquals(-281474976710656, Unpacker(Source("d3-ff-ff-00-00-00-00-00-00".dehex())).unpackLong())
+        Assertions.assertEquals(-281474976710656, InMemoryUnpacker("d3-ff-ff-00-00-00-00-00-00".dehex()).unpackLong())
         Assertions.assertEquals(
             -281474976710656.0,
-            Unpacker(Source("ca-d7-80-00-00".dehex())).unpackFloat()!!.toDouble(),
+            InMemoryUnpacker("ca-d7-80-00-00".dehex()).unpackFloat()!!.toDouble(),
             0.01
         )
         Assertions.assertEquals(
             -281474976710656.0,
-            Unpacker(Source("cb-c2-f0-00-00-00-00-00-00".dehex())).unpackDouble()!!,
+            InMemoryUnpacker("cb-c2-f0-00-00-00-00-00-00".dehex()).unpackDouble()!!,
             0.01
         )
 
@@ -107,11 +106,11 @@ class BigNums {
 
         Assertions.assertEquals(
             9223372036854775807,
-            Unpacker(Source("d3-7f-ff-ff-ff-ff-ff-ff-ff".dehex())).unpackLong()
+            InMemoryUnpacker("d3-7f-ff-ff-ff-ff-ff-ff-ff".dehex()).unpackLong()
         )
         Assertions.assertEquals(
             9223372036854775807uL,
-            Unpacker(Source("cf-7f-ff-ff-ff-ff-ff-ff-ff".dehex())).unpackULong()
+            InMemoryUnpacker("cf-7f-ff-ff-ff-ff-ff-ff-ff".dehex()).unpackULong()
         )
 
         //    {
@@ -123,7 +122,7 @@ class BigNums {
 
         Assertions.assertEquals(
             -9223372036854775807,
-            Unpacker(Source("d3-80-00-00-00-00-00-00-01".dehex())).unpackLong()
+            InMemoryUnpacker("d3-80-00-00-00-00-00-00-01".dehex()).unpackLong()
         )
 
 
@@ -134,7 +133,10 @@ class BigNums {
         //      ]
         //    },
 
-        Assertions.assertEquals(9223372036854775808uL, Unpacker(Source("cf-80-00-00-00-00-00-00-00".dehex())).unpackULong())
+        Assertions.assertEquals(
+            9223372036854775808uL,
+            InMemoryUnpacker("cf-80-00-00-00-00-00-00-00".dehex()).unpackULong()
+        )
 
         //    {
         //      "bignum": "-9223372036854775808",
@@ -145,11 +147,11 @@ class BigNums {
 
         Assertions.assertEquals(
             "-9223372036854775808",
-            Unpacker(Source("d3-80-00-00-00-00-00-00-00".dehex())).unpackLong().toString()
+            InMemoryUnpacker("d3-80-00-00-00-00-00-00-00".dehex()).unpackLong().toString()
         )
         Assertions.assertEquals(
             "-9223372036854775808".toLong(),
-            Unpacker(Source("d3-80-00-00-00-00-00-00-00".dehex())).unpackLong()
+            InMemoryUnpacker("d3-80-00-00-00-00-00-00-00".dehex()).unpackLong()
         )
 
         //    {
@@ -162,7 +164,7 @@ class BigNums {
 
         Assertions.assertEquals(
             18446744073709551615uL,
-            Unpacker(Source("cf-ff-ff-ff-ff-ff-ff-ff-ff".dehex())).unpackULong()
+            InMemoryUnpacker("cf-ff-ff-ff-ff-ff-ff-ff-ff".dehex()).unpackULong()
         )
     }
 }

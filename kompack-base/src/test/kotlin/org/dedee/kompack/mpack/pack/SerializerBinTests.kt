@@ -6,9 +6,6 @@ import org.junit.jupiter.api.Test
 
 class SerializerBinTests {
 
-    private val dest = ByteArray(70_000)
-    private val packer = Packer(SinkInMemory(dest))
-
     @Test
     fun `bin 8 stores a byte array whose length is upto 255 bytes`() {
         // bin 8 stores a byte array whose length is upto 255 bytes:
@@ -17,7 +14,7 @@ class SerializerBinTests {
         // +--------+--------+========+
         assertEquals(
             "c409000102030405060708",
-            packer.pack(byteArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8)).build().hex()
+            InMemoryPacker(20).pack(byteArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8)).build().hex()
         )
     }
 
@@ -29,11 +26,11 @@ class SerializerBinTests {
         // +--------+--------+--------+========+
         assertEquals(
             "c50100", extractHex(
-                packer.pack(buildBin(256, 0x10)).build(), 0, 3
+                InMemoryPacker(300).pack(buildBin(256, 0x10)).build(), 0, 3
             )
         )
 
-        val b = packer.pack(buildBin(10_100, 0x10)).build()
+        val b = InMemoryPacker(10_200).pack(buildBin(10_100, 0x10)).build()
         assertEquals("c527741010", extractHex(b, 0, 5))
     }
 
@@ -43,7 +40,7 @@ class SerializerBinTests {
         // +--------+--------+--------+--------+--------+========+
         // |  0xc6  |ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|ZZZZZZZZ|  data  |
         // +--------+--------+--------+--------+--------+========+
-        val b = packer.pack(buildBin(68_123, 0x10)).build()
+        val b = InMemoryPacker(70_000).pack(buildBin(68_123, 0x10)).build()
         assertEquals("c600010a1b", extractHex(b, 0, 5))
     }
 

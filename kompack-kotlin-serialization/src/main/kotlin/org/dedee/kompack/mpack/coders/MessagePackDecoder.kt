@@ -8,7 +8,7 @@ import kotlinx.serialization.encoding.CompositeDecoder
 import kotlinx.serialization.modules.EmptySerializersModule
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.serializer
-import org.dedee.kompack.mpack.unpack.Source
+import org.dedee.kompack.mpack.unpack.InMemoryUnpacker
 import org.dedee.kompack.mpack.unpack.Unpacker
 
 @OptIn(ExperimentalSerializationApi::class)
@@ -62,7 +62,7 @@ class MessagePackDecoder(
 
     companion object {
         fun <T> decodeFromByteArray(b: ByteArray, deserializer: DeserializationStrategy<T>): T {
-            val decoder = MessagePackDecoder(Unpacker(Source(b)))
+            val decoder = MessagePackDecoder(InMemoryUnpacker(b))
             return decoder.decodeSerializableValue(deserializer)
         }
 

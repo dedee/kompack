@@ -1,6 +1,17 @@
 package org.dedee.kompack.mpack.pack
 
-class Packer(private val sink: Sink) {
+import java.io.OutputStream
+
+class InMemoryPacker(size: Int = 1024) : Packer(SinkInMemory(ByteArray(size))) {
+}
+
+fun Packer.build(): ByteArray {
+    return (sink as SinkInMemory).build()
+}
+
+class StreamPacker(out:OutputStream) : Packer(SinkStream(out))
+
+open class Packer(val sink: Sink) {
 
     private val booleanTypePacker = BooleanTypePacker()
     private val intTypePacker = IntTypePacker()
@@ -12,8 +23,6 @@ class Packer(private val sink: Sink) {
     private val binTypePacker = BinTypePacker()
     private val arrayTypePacker = ArrayTypePacker()
     private val mapTypePacker = MapTypePacker()
-
-    fun build() = sink.build()
 
     fun pack(o: Any?): Packer {
         when {
@@ -87,6 +96,7 @@ class Packer(private val sink: Sink) {
         return this
     }
 
+    // FIXME
 // not allowed
 //    fun pack(ul: ULong): Packer {
 //        ulongTypePacker.pack(ul, sink)

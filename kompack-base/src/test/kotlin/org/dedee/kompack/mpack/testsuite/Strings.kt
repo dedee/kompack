@@ -1,7 +1,6 @@
 package org.dedee.kompack.mpack.testsuite
 
-import org.dedee.kompack.mpack.unpack.Source
-import org.dedee.kompack.mpack.unpack.Unpacker
+import org.dedee.kompack.mpack.unpack.InMemoryUnpacker
 import org.dedee.kompack.mpack.util.dehex
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -21,10 +20,10 @@ class Strings {
         //      ]
         //    },
 
-        assertEquals("", Unpacker(Source("a0".dehex())).unpackString())
-        assertEquals("", Unpacker(Source("d9-00".dehex())).unpackString())
-        assertEquals("", Unpacker(Source("da-00-00".dehex())).unpackString())
-        assertEquals("", Unpacker(Source("db-00-00-00-00".dehex())).unpackString())
+        assertEquals("", InMemoryUnpacker("a0".dehex()).unpackString())
+        assertEquals("", InMemoryUnpacker("d9-00".dehex()).unpackString())
+        assertEquals("", InMemoryUnpacker("da-00-00".dehex()).unpackString())
+        assertEquals("", InMemoryUnpacker("db-00-00-00-00".dehex()).unpackString())
 
         //    {
         //      "string": "a",
@@ -36,10 +35,10 @@ class Strings {
         //      ]
         //    },
 
-        assertEquals("a", Unpacker(Source("a1-61".dehex())).unpackString())
-        assertEquals("a", Unpacker(Source("d9-01-61".dehex())).unpackString())
-        assertEquals("a", Unpacker(Source("da-00-01-61".dehex())).unpackString())
-        assertEquals("a", Unpacker(Source("db-00-00-00-01-61".dehex())).unpackString())
+        assertEquals("a", InMemoryUnpacker("a1-61".dehex()).unpackString())
+        assertEquals("a", InMemoryUnpacker("d9-01-61".dehex()).unpackString())
+        assertEquals("a", InMemoryUnpacker("da-00-01-61".dehex()).unpackString())
+        assertEquals("a", InMemoryUnpacker("db-00-00-00-01-61".dehex()).unpackString())
 
         //    {
         //      "string": "1234567890123456789012345678901",
@@ -52,15 +51,15 @@ class Strings {
 
         assertEquals(
             "1234567890123456789012345678901",
-            Unpacker(Source("bf-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31".dehex())).unpackString()
+            InMemoryUnpacker("bf-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31".dehex()).unpackString()
         )
         assertEquals(
             "1234567890123456789012345678901",
-            Unpacker(Source("d9-1f-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31".dehex())).unpackString()
+            InMemoryUnpacker("d9-1f-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31".dehex()).unpackString()
         )
         assertEquals(
             "1234567890123456789012345678901",
-            Unpacker(Source("da-00-1f-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31".dehex())).unpackString()
+            InMemoryUnpacker("da-00-1f-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31".dehex()).unpackString()
         )
 
 
@@ -75,11 +74,11 @@ class Strings {
 
         assertEquals(
             "12345678901234567890123456789012",
-            Unpacker(Source("d9-20-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31-32".dehex())).unpackString()
+            InMemoryUnpacker("d9-20-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31-32".dehex()).unpackString()
         )
         assertEquals(
             "12345678901234567890123456789012",
-            Unpacker(Source("da-00-20-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31-32".dehex())).unpackString()
+            InMemoryUnpacker("da-00-20-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31-32-33-34-35-36-37-38-39-30-31-32".dehex()).unpackString()
         )
 
     }
@@ -97,11 +96,11 @@ class Strings {
 
         assertEquals(
             "Кириллица",
-            Unpacker(Source("b2-d0-9a-d0-b8-d1-80-d0-b8-d0-bb-d0-bb-d0-b8-d1-86-d0-b0".dehex())).unpackString()
+            InMemoryUnpacker("b2-d0-9a-d0-b8-d1-80-d0-b8-d0-bb-d0-bb-d0-b8-d1-86-d0-b0".dehex()).unpackString()
         )
         assertEquals(
             "Кириллица",
-            Unpacker(Source("d9-12-d0-9a-d0-b8-d1-80-d0-b8-d0-bb-d0-bb-d0-b8-d1-86-d0-b0".dehex())).unpackString()
+            InMemoryUnpacker("d9-12-d0-9a-d0-b8-d1-80-d0-b8-d0-bb-d0-bb-d0-b8-d1-86-d0-b0".dehex()).unpackString()
         )
 
         //    {
@@ -114,11 +113,11 @@ class Strings {
 
         assertEquals(
             "ひらがな",
-            Unpacker(Source("ac-e3-81-b2-e3-82-89-e3-81-8c-e3-81-aa".dehex())).unpackString()
+            InMemoryUnpacker("ac-e3-81-b2-e3-82-89-e3-81-8c-e3-81-aa".dehex()).unpackString()
         )
         assertEquals(
             "ひらがな",
-            Unpacker(Source("d9-0c-e3-81-b2-e3-82-89-e3-81-8c-e3-81-aa".dehex())).unpackString()
+            InMemoryUnpacker("d9-0c-e3-81-b2-e3-82-89-e3-81-8c-e3-81-aa".dehex()).unpackString()
         )
 
 
@@ -132,11 +131,11 @@ class Strings {
 
         assertEquals(
             "한글",
-            Unpacker(Source("a6-ed-95-9c-ea-b8-80".dehex())).unpackString()
+            InMemoryUnpacker("a6-ed-95-9c-ea-b8-80".dehex()).unpackString()
         )
         assertEquals(
             "한글",
-            Unpacker(Source("d9-06-ed-95-9c-ea-b8-80".dehex())).unpackString()
+            InMemoryUnpacker("d9-06-ed-95-9c-ea-b8-80".dehex()).unpackString()
         )
 
         //    {
@@ -149,11 +148,11 @@ class Strings {
 
         assertEquals(
             "汉字",
-            Unpacker(Source("a6-e6-b1-89-e5-ad-97".dehex())).unpackString()
+            InMemoryUnpacker("a6-e6-b1-89-e5-ad-97".dehex()).unpackString()
         )
         assertEquals(
             "汉字",
-            Unpacker(Source("d9-06-e6-b1-89-e5-ad-97".dehex())).unpackString()
+            InMemoryUnpacker("d9-06-e6-b1-89-e5-ad-97".dehex()).unpackString()
         )
 
         //    {
@@ -167,11 +166,11 @@ class Strings {
 
         assertEquals(
             "漢字",
-            Unpacker(Source("a6-e6-bc-a2-e5-ad-97".dehex())).unpackString()
+            InMemoryUnpacker("a6-e6-bc-a2-e5-ad-97".dehex()).unpackString()
         )
         assertEquals(
             "漢字",
-            Unpacker(Source("d9-06-e6-bc-a2-e5-ad-97".dehex())).unpackString()
+            InMemoryUnpacker("d9-06-e6-bc-a2-e5-ad-97".dehex()).unpackString()
         )
     }
 
@@ -188,11 +187,11 @@ class Strings {
 
         assertEquals(
             "❤",
-            Unpacker(Source("a3-e2-9d-a4".dehex())).unpackString()
+            InMemoryUnpacker("a3-e2-9d-a4".dehex()).unpackString()
         )
         assertEquals(
             "❤",
-            Unpacker(Source("d9-03-e2-9d-a4".dehex())).unpackString()
+            InMemoryUnpacker("d9-03-e2-9d-a4".dehex()).unpackString()
         )
 
         //    {
@@ -206,11 +205,11 @@ class Strings {
 
         assertEquals(
             "\uD83C\uDF7A",
-            Unpacker(Source("a4-f0-9f-8d-ba".dehex())).unpackString()
+            InMemoryUnpacker("a4-f0-9f-8d-ba".dehex()).unpackString()
         )
         assertEquals(
             "\uD83C\uDF7A",
-            Unpacker(Source("d9-04-f0-9f-8d-ba7".dehex())).unpackString()
+            InMemoryUnpacker("d9-04-f0-9f-8d-ba7".dehex()).unpackString()
         )
     }
 }
