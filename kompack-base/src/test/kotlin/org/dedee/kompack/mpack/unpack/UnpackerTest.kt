@@ -9,6 +9,14 @@ class UnpackerTest {
     @Test
     fun `Unpack int NIL`() {
         assertNull(InMemoryUnpacker(byteArrayOf(0xc0.toByte())).unpackInt())
+        assertNull(InMemoryUnpacker(byteArrayOf(0xc0.toByte())).unpackLong())
+        assertNull(InMemoryUnpacker(byteArrayOf(0xc0.toByte())).unpackULong())
+        assertNull(InMemoryUnpacker(byteArrayOf(0xc0.toByte())).unpackString())
+        assertNull(InMemoryUnpacker(byteArrayOf(0xc0.toByte())).unpackDouble())
+        assertNull(InMemoryUnpacker(byteArrayOf(0xc0.toByte())).unpackFloat())
+        assertNull(InMemoryUnpacker(byteArrayOf(0xc0.toByte())).unpackArray())
+        assertNull(InMemoryUnpacker(byteArrayOf(0xc0.toByte())).unpackBinary())
+        assertNull(InMemoryUnpacker(byteArrayOf(0xc0.toByte())).unpackMap())
     }
 
     @Test
