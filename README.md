@@ -4,11 +4,17 @@ MessagePack serialization engine for Kotlin.
 
 Note: Under construction!
 
-[<img src="https://github.com/dedee/kompack/actions/workflows/build-gradle-project.yml/badge.svg">](<https://github.com/dedee/kompack/actions>)
+[<img src="https://github.com/dedee/kompack/actions/workflows/build.yml/badge.svg">](<https://github.com/dedee/kompack/actions>)
 
 ## Kotlinx Serialization API
 
-In memory (byte array)
+Here is our example. A simple address book structure, using Kotlin data classes with @Serializable annotation.
+
+    @Serializable
+    data class Entry(val name: String, val street: String, val zip: Int, val city: String)
+
+    @Serializable
+    data class AddressBook(val entries: List<Entry>)
 
     val addressBook = AddressBook(
         listOf(
@@ -17,9 +23,11 @@ In memory (byte array)
         )
     )
 
+In memory (byte array) you can simply serialize the address book into a ByteArray.
+
     val encodedByteArray = MessagePackEncoder.encodeToByteArray(addressBook)
 
-Stream based
+You can also write it into a stream (e.g. file stream), which is perfect for large structures.
 
     BufferedOutputStream(FileOutputStream("test.dat")).let { out ->
         MessagePackEncoder.encodeToStream(addressBook, out)
@@ -27,7 +35,10 @@ Stream based
 
 ## Low level API
 
-In memory (byte array)
+In kompack-base we provide a low level API to read and write MessagePack structures.
+You can use that, if you do not like to use the kotlinx serialization framework.
+
+You can serialize many different types directly into a byte array (in memory)
 
     val byteArray = InMemoryPacker(100)
       .pack(true)
@@ -38,7 +49,7 @@ In memory (byte array)
     val b = p.unpackBoolean() // true
     val i = p.unpackInt() // 10
 
-Stream based
+Or you can use the stream API to write larger files
 
     StreamUnpacker(BufferedInputStream(FileInputStream("in.dat"))).use { p ->
       val b = p.unpackBoolean() // true
