@@ -26,3 +26,6 @@ jacocoTestReport {
         xml.required = true
     }
 }
+
+sonarqube {
+}

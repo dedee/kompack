@@ -3,11 +3,12 @@ package org.dedee.kompack.mpack.unpack
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class UnpackerTest {
 
     @Test
-    fun `Unpack int NIL`() {
+    fun `Unpack NIL`() {
         assertNull(InMemoryUnpacker(byteArrayOf(0xc0.toByte())).unpackInt())
         assertNull(InMemoryUnpacker(byteArrayOf(0xc0.toByte())).unpackLong())
         assertNull(InMemoryUnpacker(byteArrayOf(0xc0.toByte())).unpackULong())
@@ -20,13 +21,21 @@ class UnpackerTest {
     }
 
     @Test
-    fun `Unpack int 1`() {
-        assertEquals(1, InMemoryUnpacker(byteArrayOf(0x01.toByte())).unpackInt())
+    fun `Unpack wrong format`() {
+        assertThrows<Exception> { (InMemoryUnpacker(byteArrayOf(0xc1.toByte())).unpackInt()) }
+        assertThrows<Exception> { (InMemoryUnpacker(byteArrayOf(0xc1.toByte())).unpackLong()) }
+        assertThrows<Exception> { (InMemoryUnpacker(byteArrayOf(0xc1.toByte())).unpackULong()) }
+        assertThrows<Exception> { (InMemoryUnpacker(byteArrayOf(0xc1.toByte())).unpackString()) }
+        assertThrows<Exception> { (InMemoryUnpacker(byteArrayOf(0xc1.toByte())).unpackDouble()) }
+        assertThrows<Exception> { (InMemoryUnpacker(byteArrayOf(0xc1.toByte())).unpackFloat()) }
+        assertThrows<Exception> { (InMemoryUnpacker(byteArrayOf(0xc1.toByte())).unpackArray()) }
+        assertThrows<Exception> { (InMemoryUnpacker(byteArrayOf(0xc1.toByte())).unpackBinary()) }
+        assertThrows<Exception> { (InMemoryUnpacker(byteArrayOf(0xc1.toByte())).unpackMap()) }
     }
 
     @Test
-    fun `Unpack long NIL`() {
-        assertNull(InMemoryUnpacker(byteArrayOf(0xc0.toByte())).unpackLong())
+    fun `Unpack int 1`() {
+        assertEquals(1, InMemoryUnpacker(byteArrayOf(0x01.toByte())).unpackInt())
     }
 
     @Test
