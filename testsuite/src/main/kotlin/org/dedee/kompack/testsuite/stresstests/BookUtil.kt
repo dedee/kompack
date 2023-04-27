@@ -1,4 +1,4 @@
-package org.dedee.kompack.mpack.coders
+package org.dedee.kompack.testsuite.stresstests
 
 import kotlinx.serialization.Serializable
 

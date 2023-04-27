@@ -1,12 +1,22 @@
 package org.dedee.kompack.mpack.unpack
 
+import org.dedee.kompack.mpack.util.BufferSourceInputStream
 import org.dedee.kompack.mpack.util.BufferSourceMemory
+import java.io.InputStream
 import kotlin.reflect.KClass
 
 class InMemoryUnpacker : Unpacker {
     constructor(size: Int = 1024) : super(Source(BufferSourceMemory(ByteArray(size))))
 
     constructor(data: ByteArray) : super(Source(BufferSourceMemory(data)))
+}
+
+class StreamUnpacker(private val inputStream: InputStream) : Unpacker(Source(BufferSourceInputStream(inputStream))),
+    AutoCloseable {
+    override fun close() {
+        inputStream.close()
+    }
+
 }
 
 open class Unpacker(val source: Source) {

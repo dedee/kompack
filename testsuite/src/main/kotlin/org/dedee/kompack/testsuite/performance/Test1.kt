@@ -1,4 +1,4 @@
-package org.dedee.kompack.mpack.performance
+package org.dedee.kompack.testsuite.performance
 
 import org.dedee.kompack.mpack.unpack.InMemoryUnpacker
 import kotlin.system.measureNanoTime

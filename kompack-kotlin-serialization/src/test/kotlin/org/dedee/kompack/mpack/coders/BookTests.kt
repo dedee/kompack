@@ -1,6 +1,5 @@
 package org.dedee.kompack.mpack.coders
 
-import kotlinx.serialization.Serializable
 import org.dedee.kompack.mpack.pack.InMemoryPacker
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -9,18 +8,6 @@ import kotlin.system.measureTimeMillis
 
 class BookTests {
 
-    @Serializable
-    data class Book(
-        val author: String,
-        val isbn: String,
-        val chapters: List<Chapter>
-    )
-
-    @Serializable
-    data class Chapter(
-        val title: String,
-        val paragraphs: List<String>,
-    )
 
     @Test
     fun `Book sample in memory sink`() {

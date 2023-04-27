@@ -1,7 +1,12 @@
 
-name: Gradle Build
+name: Build
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+    pull_request:
+      types: [opened, synchronize, reopened]
 
 jobs:
   build:
@@ -17,9 +22,13 @@ jobs:
           architecture: x64
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-      - name: Build with Gradle
+#      - name: Make gradlew executable
+#        run: chmod +x ./gradlew
+      - name: Build
+        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+        with:
+          arguments: build test
+      - name: Sonar Scan
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
 #          arguments: build test
@@ -32,3 +41,4 @@ jobs:
             test
             sonar
 
+# https://github.com/SonarSource/sonarcloud-github-action
