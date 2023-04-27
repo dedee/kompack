@@ -69,7 +69,7 @@ Or you can use the stream API to write larger files
 - Covers msgpack cross compatibility test
   suite https://github.com/kawanet/msgpack-test-suite/blob/master/dist/msgpack-test-suite.json
 
-## Performance comparision
+## Performance comparison
 
 ### Encoding speed using bytearray (in memory)
 

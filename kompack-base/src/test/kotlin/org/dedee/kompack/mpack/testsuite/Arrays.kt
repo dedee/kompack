@@ -1,7 +1,10 @@
 package org.dedee.kompack.mpack.testsuite
 
+import org.dedee.kompack.mpack.pack.InMemoryPacker
+import org.dedee.kompack.mpack.pack.build
 import org.dedee.kompack.mpack.unpack.InMemoryUnpacker
 import org.dedee.kompack.mpack.util.dehex
+import org.dedee.kompack.mpack.util.hex
 import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -93,4 +96,15 @@ class Arrays {
 
     }
 
+
+    @Test
+    fun `Large array test`() {
+        val a = Array(70_000) { 10.toByte() }
+        val flat = InMemoryPacker(70_100).pack(a).build()
+
+        assertEquals("dd00011170", flat.copyOfRange(0, 5).hex())
+
+        val b2 = InMemoryUnpacker(flat).unpackArray() as Array<Any>
+        assertEquals(a.size, b2.size)
+    }
 }

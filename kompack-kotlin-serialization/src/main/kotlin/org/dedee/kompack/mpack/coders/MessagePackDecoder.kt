@@ -60,6 +60,18 @@ class MessagePackDecoder(
         return unpacker.unpackInt()!!.toShort()
     }
 
+    override fun decodeChar(): Char {
+        return unpacker.unpackString()!![0]
+    }
+
+    override fun decodeDouble(): Double {
+        return unpacker.unpackDouble()!!
+    }
+
+    override fun decodeFloat(): Float {
+        return  unpacker.unpackFloat()!!
+    }
+
     companion object {
         fun <T> decodeFromByteArray(b: ByteArray, deserializer: DeserializationStrategy<T>): T {
             val decoder = MessagePackDecoder(InMemoryUnpacker(b))

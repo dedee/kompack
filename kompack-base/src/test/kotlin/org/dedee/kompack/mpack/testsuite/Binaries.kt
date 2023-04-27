@@ -1,9 +1,12 @@
 package org.dedee.kompack.mpack.testsuite
 
+import org.dedee.kompack.mpack.pack.InMemoryPacker
+import org.dedee.kompack.mpack.pack.build
 import org.dedee.kompack.mpack.unpack.InMemoryUnpacker
 import org.dedee.kompack.mpack.util.dehex
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import kotlin.test.assertContentEquals
 
 class Binaries {
     @Test
@@ -58,5 +61,13 @@ class Binaries {
         )
 
 
+    }
+
+    @Test
+    fun `Large bin test`() {
+        val b = ByteArray(20_000_000)
+        val flat = InMemoryPacker(20_000_100).pack(b).build()
+        val b2 = InMemoryUnpacker(flat).unpackBinary()
+        assertContentEquals(b, b2)
     }
 }

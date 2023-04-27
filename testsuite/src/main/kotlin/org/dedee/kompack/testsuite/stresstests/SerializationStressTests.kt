@@ -23,7 +23,7 @@ class SerializationStressTests {
             }
 
         } finally {
-            f.delete()
+            assert(f.delete())
         }
     }
 

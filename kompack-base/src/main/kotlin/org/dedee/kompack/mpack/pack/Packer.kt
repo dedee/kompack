@@ -9,7 +9,7 @@ fun Packer.build(): ByteArray {
     return (sink as SinkInMemory).build()
 }
 
-class StreamPacker(out:OutputStream) : Packer(SinkStream(out))
+class StreamPacker(out: OutputStream) : Packer(SinkStream(out))
 
 open class Packer(val sink: Sink) {
 
@@ -74,6 +74,10 @@ open class Packer(val sink: Sink) {
                 pack(o as Map<Any, Any?>)
             }
 
+            o is Byte -> {
+                pack(o)
+            }
+
             else -> {
                 TODO("Type of $o ?? ${o::class}")
             }
@@ -93,6 +97,11 @@ open class Packer(val sink: Sink) {
 
     fun pack(l: Long): Packer {
         longTypePacker.pack(l, sink)
+        return this
+    }
+
+    fun pack(b: Byte): Packer {
+        intTypePacker.pack(b.toInt(), sink)
         return this
     }
 

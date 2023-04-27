@@ -12,6 +12,14 @@ class DoubleTypeUnpacker : TypeUnpacker<Double> {
                 return null
             }
 
+            0xca -> {
+                // float 32 stores a floating point number in IEEE 754 single precision floating point number format:
+                //+--------+--------+--------+--------+--------+
+                //|  0xca  |XXXXXXXX|XXXXXXXX|XXXXXXXX|XXXXXXXX|
+                //+--------+--------+--------+--------+--------+
+                return Float.fromBits(source.pullInt32()).toDouble()
+            }
+
             0xcb -> {
                 // float 64 stores a floating point number in IEEE 754 double precision floating point number format:
                 //+--------+--------+--------+--------+--------+--------+--------+--------+--------+

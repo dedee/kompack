@@ -6,7 +6,7 @@ import java.io.InputStream
 import kotlin.reflect.KClass
 
 class InMemoryUnpacker : Unpacker {
-    constructor(size: Int = 1024) : super(Source(BufferSourceMemory(ByteArray(size))))
+//    constructor(size: Int = 1024) : super(Source(BufferSourceMemory(ByteArray(size))))
 
     constructor(data: ByteArray) : super(Source(BufferSourceMemory(data)))
 }

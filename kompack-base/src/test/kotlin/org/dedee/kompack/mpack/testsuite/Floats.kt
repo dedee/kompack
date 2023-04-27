@@ -20,6 +20,7 @@ class Floats {
         //    },
 
         assertEquals(0.5, InMemoryUnpacker("ca-3f-00-00-00".dehex()).unpackFloat()!!.toDouble(), 0.01)
+        assertEquals(0.5, InMemoryUnpacker("ca-3f-00-00-00".dehex()).unpackDouble()!!, 0.01)
         assertEquals(0.5, InMemoryUnpacker("cb-3f-e0-00-00-00-00-00-00".dehex()).unpackDouble()!!, 0.01)
 
 

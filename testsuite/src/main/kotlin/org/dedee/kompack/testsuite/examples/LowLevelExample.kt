@@ -20,14 +20,17 @@ class LowLevelExample {
 
         val p = InMemoryUnpacker(byteArray)
         val b = p.unpackBoolean() // true
+        assert(b == true)
         val i = p.unpackInt() // 10
+        assert(i == 10)
     }
 
     fun `Lowlevel API stream based`() {
         StreamUnpacker(BufferedInputStream(FileInputStream("test1.dat"))).use { p ->
             val b = p.unpackBoolean() // true
+            assert(b == true)
             val i = p.unpackInt() // 10
-
+            assert(i == 10)
             println("$b $i")
         }
     }
