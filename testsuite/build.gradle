@@ -30,3 +30,6 @@ jacocoTestReport {
         xml.required = true
     }
 }
+sonarqube {
+    skipProject = true
+}
