@@ -1,12 +1,10 @@
 
-name: Build
+name: SonarScan
 
 on:
   push:
     branches:
       - master
-    pull_request:
-      types: [opened, synchronize, reopened]
 
 jobs:
   build:
@@ -22,7 +20,15 @@ jobs:
           architecture: x64
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
-      - name: Build
+      - name: Sonar Scan
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
-          arguments: build test
+          arguments: |
+            -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.organization=dedee
+            build
+            test
+            sonar
+
+# https://github.com/SonarSource/sonarcloud-github-action
