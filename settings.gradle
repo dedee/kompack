@@ -3,5 +3,5 @@ include(
         'kompack-base',
         'kompack-kotlin-serialization',
 //        'kompack-cdb',
-        'testsuite'
+//        'testsuite'
 )

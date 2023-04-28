@@ -1,29 +1,59 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm'
-    id 'java-library'
+    id 'org.jetbrains.kotlin.multiplatform'
     id 'org.jetbrains.kotlin.plugin.serialization'
-    id 'jacoco'
-    id 'org.sonarqube'
 }
 
-dependencies {
-    api project(":kompack-base")
-    api 'org.jetbrains.kotlinx:kotlinx-serialization-core:1.4.1'
+kotlin {
+    jvm {
+        jvmToolchain(11)
+        withJava()
+        testRuns["test"].executionTask.configure {
+            useJUnitPlatform()
+        }
+    }
+    def hostOs = System.getProperty("os.name")
+    def isMingwX64 = hostOs.startsWith("Windows")
+    def nativeTarget
+    if (hostOs == "Mac OS X") nativeTarget = macosX64('native')
+    else if (hostOs == "Linux") nativeTarget = linuxX64("native")
+    else if (isMingwX64) nativeTarget = mingwX64("native")
+    else throw new GradleException("Host OS is not supported in Kotlin/Native.")
 
-    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.1'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
-}
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation project(":kompack-base")
+                implementation 'org.jetbrains.kotlinx:kotlinx-serialization-core:1.5.0'
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation kotlin('test')
+            }
+        }
+        jvmMain {
+        }
+        jvmTest {
+        }
+        nativeMain {
+        }
+        nativeTest {
+        }
+    }
 
-test {
-    useJUnitPlatform()
-    finalizedBy jacocoTestReport
-}
+    nativeTarget.with {
+        binaries {
+            sharedLib {
+                baseName = "kompack-serialization"
+            }
+            executable {
+                baseName = "kompack-serialization"
+                entryPoint = 'main'
+            }
+        }
 
-jacocoTestReport {
-    dependsOn test
-    reports {
-        xml.required = true
     }
 }
+
+
 
