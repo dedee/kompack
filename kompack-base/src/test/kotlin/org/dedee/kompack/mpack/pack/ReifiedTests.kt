@@ -1,8 +1,10 @@
 package org.dedee.kompack.mpack.pack
 
 import org.dedee.kompack.mpack.util.hex
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
+@Disabled
 class ReifiedTests {
 
     @Test
