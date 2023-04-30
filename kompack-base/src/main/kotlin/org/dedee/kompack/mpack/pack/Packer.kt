@@ -2,8 +2,7 @@ package org.dedee.kompack.mpack.pack
 
 import java.io.OutputStream
 
-class InMemoryPacker(size: Int = 1024) : Packer(SinkInMemory(ByteArray(size))) {
-}
+class InMemoryPacker(size: Int = 1024) : Packer(SinkInMemory(ByteArray(size)))
 
 fun Packer.build(): ByteArray {
     return (sink as SinkInMemory).build()
@@ -13,16 +12,63 @@ class StreamPacker(out: OutputStream) : Packer(SinkStream(out))
 
 open class Packer(val sink: Sink) {
 
-    private val booleanTypePacker = BooleanTypePacker()
-    private val intTypePacker = IntTypePacker()
-    private val longTypePacker = LongTypePacker()
-    private val ulongTypePacker = ULongTypePacker()
+    val booleanTypePacker = BooleanTypePacker()
+    val intTypePacker = IntTypePacker()
+    val longTypePacker = LongTypePacker()
+    val ulongTypePacker = ULongTypePacker()
     private val floatTypePacker = FloatTypePacker()
     private val doubleTypePacker = DoubleTypePacker()
     private val stringTypePacker = StringTypePacker()
     private val binTypePacker = BinTypePacker()
     private val arrayTypePacker = ArrayTypePacker()
     private val mapTypePacker = MapTypePacker()
+
+    /*
+    val typePackerMap: Map<KClass<*>, TypePacker<*>> = mapOf(
+        Pair(Int::class, IntTypePacker()),
+        Pair(Long::class, LongTypePacker()),
+    )
+    */
+
+
+    inline fun <reified T : Any> pakk(o: T?): Packer {
+        if (o == null) {
+            packNil()
+        } else {
+            //      println("--> ${typePackerMap[T::class]}")
+            // typePackerMap[T::class]?.pack(o, sink)
+
+            if (T::class == Int::class) {
+                intTypePacker.pack(o as Int, sink)
+            } else if (T::class == Long::class) {
+                longTypePacker.pack(o as Long, sink)
+            } else {
+                TODO()
+            }
+        }
+        /*
+        when(o) {
+           null -> packNil()
+
+           T::class == Int::class -> pack(o as T)
+
+           T::class == Long::class -> unpackLong() as T
+           T::class == ULong::class -> unpackULong() as T
+
+           T::class == Boolean::class -> unpackBoolean() as T
+           T::class == ByteArray::class -> unpackBinary() as T
+           T::class == String::class -> unpackString() as T
+           T::class == Float::class -> unpackFloat() as T
+           T::class == Double::class -> unpackDouble() as T
+
+           T::class == Array::class -> unpackArray() as T
+           T::class == Map::class -> unpackMap() as T
+
+            else -> TODO()
+        }
+*/
+        return this
+    }
 
     fun pack(o: Any?): Packer {
         when {
