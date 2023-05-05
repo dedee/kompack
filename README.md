@@ -73,18 +73,18 @@ Or you can use the stream API to write larger files
 
 ### Encoding speed using bytearray (in memory)
 
-org.dedee.kompack.testsuite.comparision.Comparision
+com.wunderbee.kompack.testsuite.comparision.Comparision
 
     Encoding speed 1000x book encoding
     ----------------------------------
     com.ensarsarajcic.kotlinx.serialization.msgpack.MsgPack:  6390 ms
-    org.dedee.kompack.mpack.coders.MessagePackEncoder:        453 ms
+    com.wunderbee.kompack.mpack.coders.MessagePackEncoder:        453 ms
     kotlinx.serialization.json.Json:                          2038 ms
 
     Decoding speed 1000x book decoding
     ----------------------------------
     com.ensarsarajcic.kotlinx.serialization.msgpack.MsgPack:  1886 ms
-    org.dedee.kompack.mpack.coders.MessagePackEncoder:        663 ms
+    com.wunderbee.kompack.mpack.coders.MessagePackEncoder:        663 ms
     kotlinx.serialization.json.Json:                          1038 ms
 
 ## Sonar

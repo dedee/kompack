@@ -2,6 +2,9 @@ rootProject.name = 'kompack'
 include(
         'kompack-base',
         'kompack-kotlin-serialization',
-//        'kompack-cdb',
         'testsuite'
 )
+includeBuild("convention-plugins")
+
+
+

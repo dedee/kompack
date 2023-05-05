@@ -1,24 +1,58 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm'
-    id 'java-library'
-    id 'jacoco'
-    id 'org.sonarqube'
+    id 'org.jetbrains.kotlin.multiplatform'
+    id 'org.jetbrains.dokka'
+    id 'maven-publish'
 }
+kotlin {
+    jvm {
+        jvmToolchain(8) // Java8 minimum ok?
+        withJava()
+        testRuns["test"].executionTask.configure {
+            useJUnitPlatform()
+        }
+    }
+    def hostOs = System.getProperty("os.name")
+    def isMingwX64 = hostOs.startsWith("Windows")
+    def nativeTarget
+    if (hostOs == "Mac OS X") nativeTarget = macosX64('native')
+    else if (hostOs == "Linux") nativeTarget = linuxX64("native")
+    else if (isMingwX64) nativeTarget = mingwX64("native")
+    else throw new GradleException("Host OS is not supported in Kotlin/Native.")
 
-dependencies {
-    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.1'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
-}
+    sourceSets {
+        commonMain {
+            dependencies {
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation kotlin('test')
+            }
+        }
+        jvmMain {
+        }
+        jvmTest {
+        }
+        nativeMain {
+        }
+        nativeTest {
+        }
+    }
 
-test {
-    useJUnitPlatform()
-    finalizedBy jacocoTestReport
-}
+    nativeTarget.with {
+        binaries {
+            sharedLib {
+                baseName = "kompack-cdb"
+            }
+            // dont expose a main if you are a lib :)
+            executable {
+                baseName = "kompack-cdb-tool"
+                entryPoint = 'main'
+            }
+        }
 
-jacocoTestReport {
-    dependsOn test
-    reports {
-        xml.required = true
     }
 }
+
+
+

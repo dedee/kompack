@@ -1,22 +1,20 @@
 plugins {
-    id 'java-library'
-    id 'org.jetbrains.kotlin.jvm' version '1.8.10' apply false
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.10' apply false
-    id 'jacoco'
-    id 'org.sonarqube' version '4.0.0.2929'
-    //    id 'maven-publish'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.21' apply false
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.21' apply false
+    id 'org.jetbrains.kotlin.multiplatform' version '1.8.21' apply false
+    id 'org.jetbrains.dokka' version '1.8.10' apply false
+}
+
+repositories {
+    gradlePluginPortal()
+    mavenCentral()
 }
 
 subprojects {
+    group = "com.wunderbee.kompack"
+    version = "0.0.2"
     repositories {
         mavenCentral()
     }
 }
 
-sonarqube {
-    properties {
-        property "sonar.projectKey", "dedee_kompack"
-        property "sonar.organization", "dedee"
-        property "sonar.host.url", "https://sonarcloud.io"
-    }
-}
