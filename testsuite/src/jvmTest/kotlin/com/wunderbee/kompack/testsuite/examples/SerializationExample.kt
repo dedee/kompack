@@ -37,7 +37,7 @@ class SerializationExample {
             )
         )
 
-        SinkStream(BufferedOutputStream(FileOutputStream("test2.dat"))).let { out ->
+        SinkStream(BufferedOutputStream(FileOutputStream("test2.dat"))).use { out ->
             MessagePackEncoder.encodeToStream(addressBook, out)
         }
     }

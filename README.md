@@ -1,14 +1,17 @@
-# kompack
+# Kompack - Kotlin Multiplatform MessagePack Serialization Engine
 
-MessagePack serialization engine for Kotlin.
+Serialization engine for Kotlin Multiplatform (JVM/native) using MessagePack binary format
+to optimize size and performance.
 
-Note: Under construction!
+If you want to learn more about MessagePack, check this website: https://www.msgpack.org
 
 [<img src="https://github.com/dedee/kompack/actions/workflows/build.yml/badge.svg">](<https://github.com/dedee/kompack/actions>)
 
 ## Kotlinx Serialization API
 
 Here is our example. A simple address book structure, using Kotlin data classes with @Serializable annotation.
+
+https://github.com/dedee/kompack-sample-application
 
 ### Add dependency
 
@@ -39,7 +42,7 @@ In memory (byte array) you can simply serialize the address book into a ByteArra
 
 You can also write it into a stream (e.g. file stream), which is perfect for large structures.
 
-    BufferedOutputStream(FileOutputStream("test.dat")).let { out ->
+    BufferedOutputStream(FileOutputStream("test.dat")).use { out ->
         MessagePackEncoder.encodeToStream(addressBook, out)
     }
 
@@ -56,7 +59,7 @@ In 'real world' scenarios, you can simply reduce the encoded size.
         println("Encoded address book into ${jsonString.length} chars")
         // Encoded address book into 179 chars
 
-For sure, its binary and no more readable/editable. So it depends on your usecase.
+For sure, its binary and no more readable/editable. So it depends on your use case.
 
 ## Low level API
 
@@ -103,13 +106,13 @@ com.wunderbee.kompack.testsuite.comparision.Comparision
     Encoding speed 1000x book encoding
     ----------------------------------
     com.ensarsarajcic.kotlinx.serialization.msgpack.MsgPack:  6390 ms
-    com.wunderbee.kompack.mpack.coders.MessagePackEncoder:        453 ms
+    com.wunderbee.kompack.mpack.coders.MessagePackEncoder:     453 ms
     kotlinx.serialization.json.Json:                          2038 ms
 
     Decoding speed 1000x book decoding
     ----------------------------------
     com.ensarsarajcic.kotlinx.serialization.msgpack.MsgPack:  1886 ms
-    com.wunderbee.kompack.mpack.coders.MessagePackEncoder:        663 ms
+    com.wunderbee.kompack.mpack.coders.MessagePackEncoder:     663 ms
     kotlinx.serialization.json.Json:                          1038 ms
 
 ## Sonar
