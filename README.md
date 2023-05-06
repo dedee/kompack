@@ -10,6 +10,14 @@ Note: Under construction!
 
 Here is our example. A simple address book structure, using Kotlin data classes with @Serializable annotation.
 
+### Add dependency
+
+    dependencies {
+      implementation group: 'com.wunderbee.kompack', name: 'kompack-kotlin-serialization', version: '0.0.2'
+    }
+
+### Use/Create your Kotlin data classes with kotlinx.serialization
+
     @Serializable
     data class Entry(val name: String, val street: String, val zip: Int, val city: String)
 
@@ -23,6 +31,8 @@ Here is our example. A simple address book structure, using Kotlin data classes 
         )
     )
 
+### Serialize them
+
 In memory (byte array) you can simply serialize the address book into a ByteArray.
 
     val encodedByteArray = MessagePackEncoder.encodeToByteArray(addressBook)
@@ -32,6 +42,21 @@ You can also write it into a stream (e.g. file stream), which is perfect for lar
     BufferedOutputStream(FileOutputStream("test.dat")).let { out ->
         MessagePackEncoder.encodeToStream(addressBook, out)
     }
+
+### Comparison to JSON
+
+Using MessagePack may make sense to you, if size and encoding speed matters
+In 'real world' scenarios, you can simply reduce the encoded size.
+
+        val encodedByteArray = MessagePackEncoder.encodeToByteArray(addressBook)
+        println("Encoded address book into ${encodedByteArray.size} bytes")
+        // Encoded address book into 89 bytes
+
+        val jsonString = Json.encodeToString(addressBook)
+        println("Encoded address book into ${jsonString.length} chars")
+        // Encoded address book into 179 chars
+
+For sure, its binary and no more readable/editable. So it depends on your usecase.
 
 ## Low level API
 
