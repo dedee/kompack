@@ -7,9 +7,13 @@ If you want to learn more about MessagePack, check this website: https://www.msg
 
 [<img src="https://github.com/dedee/kompack/actions/workflows/build.yml/badge.svg">](<https://github.com/dedee/kompack/actions>)
 
+**NOTE**
+This library is development - use with care. I am looking forward to your feedback.
+
 ## Kotlinx Serialization API
 
-Here is our example. A simple address book structure, using Kotlin data classes with @Serializable annotation.
+Here is an example. Simple address book structure, using Kotlin data classes
+with @Serializable annotation.
 
 https://github.com/dedee/kompack-sample-application
 
@@ -40,7 +44,8 @@ In memory (byte array) you can simply serialize the address book into a ByteArra
 
     val encodedByteArray = MessagePackEncoder.encodeToByteArray(addressBook)
 
-You can also write it into a stream (e.g. file stream), which is perfect for large structures.
+You can also write it into a stream (e.g. file stream), which is perfect for large 
+structures.
 
     BufferedOutputStream(FileOutputStream("test.dat")).use { out ->
         MessagePackEncoder.encodeToStream(addressBook, out)
@@ -121,6 +126,7 @@ https://sonarcloud.io/project/overview?id=dedee_kompack
 
 ## Open
 
+- Support more target platforms. Build, cross compilation TBD
 - Array/Map type improvements Kotlin generics / reified?
 - Exception concept in base
 - BigNums not yet implemented - uint64... long
