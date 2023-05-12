@@ -9,6 +9,7 @@ If you want to learn more about MessagePack, check this website: https://www.msg
 
 **NOTE**
 This library is development - use with care. I am looking forward to your feedback.
+Current releases just contain JVM and mingw_x64 native libraries. More platforms will be built soon.
 
 ## Kotlinx Serialization API
 
