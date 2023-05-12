@@ -5,6 +5,7 @@ to optimize size and performance.
 
 If you want to learn more about MessagePack, check this website: https://www.msgpack.org
 
+[![Kotlin Alpha](https://kotl.in/badges/alpha.svg)](https://kotlinlang.org/docs/components-stability.html)
 [<img src="https://github.com/dedee/kompack/actions/workflows/build.yml/badge.svg">](<https://github.com/dedee/kompack/actions>)
 
 **NOTE**
