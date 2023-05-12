@@ -33,7 +33,10 @@ jobs:
 
       - name: Build
         uses: gradle/gradle-build-action@v2
+        #continue-on-error: ${{ matrix.config.continueOnError }}
+        with:
+          arguments: build test
 
-      - name: Test ${{ matrix.config.target }} targets
-        continue-on-error: ${{ matrix.config.continueOnError }}
-        run: ./gradlew ${{ matrix.config.tasks }}
+      #- name: Test ${{ matrix.config.target }} targets
+      #  continue-on-error: ${{ matrix.config.continueOnError }}
+      #  run: ./gradlew ${{ matrix.config.tasks }}
