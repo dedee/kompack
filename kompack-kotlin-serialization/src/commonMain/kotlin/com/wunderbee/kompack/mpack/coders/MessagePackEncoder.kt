@@ -1,5 +1,9 @@
 package com.wunderbee.kompack.mpack.coders
 
+import com.wunderbee.kompack.mpack.pack.InMemoryPacker
+import com.wunderbee.kompack.mpack.pack.Packer
+import com.wunderbee.kompack.mpack.pack.Sink
+import com.wunderbee.kompack.mpack.pack.build
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.descriptors.SerialDescriptor
@@ -8,13 +12,10 @@ import kotlinx.serialization.encoding.CompositeEncoder
 import kotlinx.serialization.modules.EmptySerializersModule
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.serializer
-import com.wunderbee.kompack.mpack.pack.Packer
-import com.wunderbee.kompack.mpack.pack.Sink
-import com.wunderbee.kompack.mpack.pack.SinkInMemory
 
 @OptIn(ExperimentalSerializationApi::class)
 class MessagePackEncoder(
-    val packer: Packer = Packer(SinkInMemory(ByteArray(1_000)))
+    val packer: Packer = InMemoryPacker(1_000)
 ) : AbstractEncoder() {
 
     override val serializersModule: SerializersModule = EmptySerializersModule()
@@ -79,7 +80,7 @@ class MessagePackEncoder(
             messagePackEncoder: MessagePackEncoder = MessagePackEncoder()
         ): ByteArray {
             messagePackEncoder.encodeSerializableValue(serializer, value)
-            return (messagePackEncoder.packer.sink as SinkInMemory).build()
+            return messagePackEncoder.packer.build()
         }
 
         inline fun <reified T> encodeToByteArray(value: T) = encodeToByteArray(serializer(), value)

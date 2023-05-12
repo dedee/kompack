@@ -9,5 +9,7 @@ interface Sink {
     fun addBytes(src: ByteArray, offset: Int, len: Int): Sink
     fun addBytes(src: ByteArray): Sink
     fun flush()
+
 }
+
 

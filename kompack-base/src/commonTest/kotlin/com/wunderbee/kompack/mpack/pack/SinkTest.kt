@@ -1,13 +1,13 @@
 package com.wunderbee.kompack.mpack.pack
 
+import com.wunderbee.kompack.mpack.util.SelfGrowingInMemorySink
 import com.wunderbee.kompack.mpack.util.hex
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class SinkTest {
 
-    private val dest = ByteArray(10)
-    private val s = SinkInMemory(dest)
+    private val s = SelfGrowingInMemorySink(10)
 
     @Test
     fun `Nothing added Empty`() {
