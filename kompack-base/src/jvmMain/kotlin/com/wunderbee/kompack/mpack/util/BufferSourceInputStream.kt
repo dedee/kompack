@@ -6,11 +6,8 @@ class BufferSourceInputStream(private val ins: InputStream) : BufferSource {
 
     private var last: Int? = null
     private var b: Int? = null
-    override fun pullUByte(): Int {
-        return pullSByte() and 0xff
-    }
 
-    override fun pullSByte(): Int {
+    override fun pullUByte(): Int {
         if (b != null) {
             last = b
             b = null
@@ -22,6 +19,10 @@ class BufferSourceInputStream(private val ins: InputStream) : BufferSource {
             last = r
         }
         return last!!
+    }
+
+    override fun pullSByte(): Int {
+        return pullUByte().toByte().toInt() // maybe optimize that?
     }
 
     override fun pushBack() {
