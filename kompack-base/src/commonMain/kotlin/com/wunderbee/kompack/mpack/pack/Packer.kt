@@ -1,8 +1,10 @@
 package com.wunderbee.kompack.mpack.pack
 
+import com.wunderbee.kompack.mpack.util.SelfGrowingInMemorySink
+
 
 fun Packer.build(): ByteArray {
-    return (sink as SinkInMemory).build()
+    return (sink as SelfGrowingInMemorySink).build()
 }
 
 
@@ -61,7 +63,7 @@ open class Packer(val sink: Sink) {
                 pack(o)
             }
 
-            o is Array<*>  -> {
+            o is Array<*> -> {
                 pack(o as Array<Any>)
             }
 
