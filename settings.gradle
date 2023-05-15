@@ -7,4 +7,19 @@ include(
 includeBuild("convention-plugins")
 
 
+dependencyResolutionManagement {
+    versionCatalogs {
+        libs {
+            version('kotlin', '1.8.21')
+            version('dokka', '1.8.10')
+            version('kotlinx.serialization', '1.5.0')
 
+            library('kotlinx.serialization', 'org.jetbrains.kotlinx', 'kotlinx-serialization-core').versionRef('kotlinx.serialization')
+
+            plugin('kotlin.jvm', 'org.jetbrains.kotlin.jvm').versionRef('kotlin')
+            plugin('kotlin.serialization', 'org.jetbrains.kotlin.plugin.serialization').versionRef('kotlin')
+            plugin('kotlin.multiplatform', 'org.jetbrains.kotlin.multiplatform').versionRef('kotlin')
+            plugin('dokka', 'org.jetbrains.dokka').versionRef('dokka')
+        }
+    }
+}
