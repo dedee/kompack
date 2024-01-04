@@ -1,91 +1,28 @@
 plugins {
-    id 'org.jetbrains.kotlin.multiplatform'
+    id 'org.jetbrains.kotlin.jvm'
     id 'org.jetbrains.kotlin.plugin.serialization'
-    id 'org.jetbrains.dokka'
-    id 'convention.publication' // local publish plugin
+    id 'convention.publication'
 }
-
-kotlin {
-    jvm {
-        jvmToolchain(8) // Java8 minimum ok?
-        withJava()
-        testRuns["test"].executionTask.configure {
-            useJUnitPlatform()
-        }
-    }
-    def hostOs = System.getProperty("os.name")
-    def isMingwX64 = hostOs.startsWith("Windows")
-    def nativeTarget
-    if (hostOs == "Mac OS X") nativeTarget = macosX64('native')
-    else if (hostOs == "Linux") nativeTarget = linuxX64("native")
-    else if (isMingwX64) nativeTarget = mingwX64("native")
-    else throw new GradleException("Host OS is not supported in Kotlin/Native.")
-
-    sourceSets {
-        commonMain {
-            dependencies {
-                api project(":kompack-base")
-                api 'org.jetbrains.kotlinx:kotlinx-serialization-core:1.5.0'
-            }
-        }
-        commonTest {
-            dependencies {
-                implementation kotlin('test')
-            }
-        }
-        jvmMain {
-        }
-        jvmTest {
-        }
-        nativeMain {
-        }
-        nativeTest {
-        }
-    }
-
-    nativeTarget.with {
-        binaries {
-            sharedLib {
-                baseName = "kompack-serialization"
-            }
-            // dont expose a main if you are a lib :)
-//            executable {
-//                baseName = "kompack-serialization"
-//                entryPoint = 'main'
-//            }
-        }
-
-    }
-}
-
-publishJvmPublicationToMavenLocal.dependsOn(signKotlinMultiplatformPublication,
-        signJvmPublication,
-        signNativePublication)
-publishKotlinMultiplatformPublicationToMavenLocal.dependsOn(signKotlinMultiplatformPublication,
-        signJvmPublication,
-        signNativePublication)
-publishNativePublicationToMavenLocal.dependsOn(signKotlinMultiplatformPublication,
-        signJvmPublication,
-        signNativePublication)
-
-publishJvmPublicationToSonatypeRepository.dependsOn(signKotlinMultiplatformPublication,
-        signJvmPublication,
-        signNativePublication)
-publishKotlinMultiplatformPublicationToSonatypeRepository.dependsOn(signKotlinMultiplatformPublication,
-        signJvmPublication,
-        signNativePublication)
-publishNativePublicationToSonatypeRepository.dependsOn(signKotlinMultiplatformPublication,
-        signJvmPublication,
-        signNativePublication)
-
 publishing {
     publications.withType(MavenPublication) {
         // Stub javadoc.jar artifact
-//        artifact(javadocJar)
+        artifact(javadocJar)
         pom {
             name.set("kompack-kotlin-serialization")
-            description.set("Kotlinx serialization multiplatform library")
+            description.set("Kotlinx serialization library")
             url.set("https://github.com/dedee/kompack")
         }
     }
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    api 'org.jetbrains.kotlinx:kotlinx-serialization-core:1.5.0'
+    api project(":kompack-base")
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+}
+kotlin {
+    jvmToolchain(8)
 }

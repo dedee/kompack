@@ -1,82 +1,27 @@
 plugins {
-//    id 'java'
-    id 'org.jetbrains.kotlin.multiplatform'
-    id 'org.jetbrains.dokka'
-    id 'convention.publication' // local publish plugin
+    id 'convention.publication'
+    id 'org.jetbrains.kotlin.jvm'
 }
-
-kotlin {
-    jvm {
-        jvmToolchain(8) // Java8 minimum ok?
-        withJava()
-        testRuns["test"].executionTask.configure {
-            useJUnitPlatform()
-        }
-    }
-    def hostOs = System.getProperty("os.name")
-    def isMingwX64 = hostOs.startsWith("Windows")
-    def nativeTarget
-    if (hostOs == "Mac OS X") nativeTarget = macosX64('native')
-    else if (hostOs == "Linux") nativeTarget = linuxX64("native")
-    else if (isMingwX64) nativeTarget = mingwX64("native")
-    else throw new GradleException("Host OS is not supported in Kotlin/Native.")
-
-    sourceSets {
-        commonMain {
-        }
-        commonTest {
-            dependencies {
-                implementation kotlin('test')
-            }
-        }
-        jvmMain {
-        }
-        jvmTest {
-        }
-        nativeMain {
-        }
-        nativeTest {
-        }
-    }
-
-    nativeTarget.with {
-        binaries {
-            sharedLib {
-                baseName = "kompack-base"
-            }
-        }
-    }
-}
-
-publishJvmPublicationToMavenLocal.dependsOn(signKotlinMultiplatformPublication,
-        signJvmPublication,
-        signNativePublication)
-publishKotlinMultiplatformPublicationToMavenLocal.dependsOn(signKotlinMultiplatformPublication,
-        signJvmPublication,
-        signNativePublication)
-publishNativePublicationToMavenLocal.dependsOn(signKotlinMultiplatformPublication,
-        signJvmPublication,
-        signNativePublication)
-
-publishJvmPublicationToSonatypeRepository.dependsOn(signKotlinMultiplatformPublication,
-        signJvmPublication,
-        signNativePublication)
-publishKotlinMultiplatformPublicationToSonatypeRepository.dependsOn(signKotlinMultiplatformPublication,
-        signJvmPublication,
-        signNativePublication)
-publishNativePublicationToSonatypeRepository.dependsOn(signKotlinMultiplatformPublication,
-        signJvmPublication,
-        signNativePublication)
 
 publishing {
     publications.withType(MavenPublication) {
         // Stub javadoc.jar artifact
-//        artifact(javadocJar)
+        artifact(javadocJar)
         pom {
             name.set("kompack-base")
-            description.set("Base MessagePack multiplatform serialization library")
+            description.set("Base MessagePack serialization library")
             url.set("https://github.com/dedee/kompack")
         }
     }
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+}
+kotlin {
+    jvmToolchain(8)
 }
 

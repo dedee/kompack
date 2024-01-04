@@ -1,8 +1,6 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.8.21' apply false
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.21' apply false
-    id 'org.jetbrains.kotlin.multiplatform' version '1.8.21' apply false
-    id 'org.jetbrains.dokka' version '1.8.10' apply false
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.9.22' apply false
+    id 'org.jetbrains.kotlin.jvm' version '1.9.22'
 }
 
 repositories {
@@ -12,9 +10,15 @@ repositories {
 
 subprojects {
     group = "com.wunderbee.kompack"
-    version = "0.0.2"
+    version = "0.0.3"
     repositories {
         mavenCentral()
     }
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+kotlin {
+    jvmToolchain(8)
 }
 
